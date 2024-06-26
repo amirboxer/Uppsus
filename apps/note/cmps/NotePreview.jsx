@@ -1,3 +1,5 @@
+import { noteService } from '../services/note.service.js'
+
 export function NotePreview() {
   const notes = [
     {
