@@ -13,19 +13,19 @@ export function NotePreview({ notes, onRemoveNote }) {
           <p className="note-txt">{note.info.txt}</p>
           <div className="note-btns">
             <button onClick={() => onRemoveNote(note.id)} className="note-btn">
-              <img
-                src="../../assets/img/noteicons/delete.png"
-                alt="Delete Button"
-              />
+            <span className="material-symbols-outlined">
+                        delete
+                    </span>
             </button>
             <button className="note-btn">
-              <img
-                src="../../../assets/img/noteicons/palette.png"
-                alt="Palette Button"
-              />
+            <span className="material-symbols-outlined ">
+                        push_pin
+                    </span>
             </button>
             <button className="note-btn">
-              <img src="../../../assets/img/noteicons/pin.png" alt="Pin Button" />
+            <span className="material-symbols-outlined">
+                        palette
+                    </span>
             </button>
           </div>
         </div>

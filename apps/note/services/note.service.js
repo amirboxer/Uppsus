@@ -82,7 +82,7 @@ function _createDemoNotes() {
   let notes = utilService.loadFromStorage(NOTE_KEY)
   if (!notes || !notes.length) {
     notes = []
-    for (let i = 0; i < 5; i++) {
+    for (let i = 0; i < 15; i++) {
       notes.push(_createDemoNote())
     }
     utilService.saveToStorage(NOTE_KEY, notes)
