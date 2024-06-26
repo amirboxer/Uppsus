@@ -3,11 +3,14 @@ import { NoteAdd } from '../cmps/NoteAdd.jsx'
 import { utilService } from '../../../services/util.service.js'
 import { storageService } from '../../../services/async-storage.service.js'
 import { noteService } from '../services/note.service.js'
+import {UserMsg} from '../../../cmps/UserMsg.jsx'
+
 import {
   eventBusService,
   showErrorMsg,
   showSuccessMsg,
-} from '../services/event-bus.service.js'
+} from '../../../services/event-bus.service.js'
+
 
 const { useEffect, useState } = React
 
@@ -39,12 +42,15 @@ export function NoteIndex() {
       })
       .catch((err) => {
         console.log('Problems removing note:', err)
-        showErrorMsg(`Having problems removing note!`)
+        showErrorMsg(`Having problems(${noteId}) removing note!`) 
       })
   }
 
+
+  
   return (
     <section>
+      <NoteAdd/>
       <NotePreview notes={notes} onRemoveNote={onRemoveNote} />
     </section>
   )
