@@ -1,0 +1,26 @@
+.note {
+  max-width: 280px;
+  margin: 1em;
+  padding: 1em;
+
+  background-color: lightblue;
+  border-radius: 6px;
+}
+
+.note-title {
+  text-align: center;
+  font-size: 1.3rem;
+}
+
+.note-txt {
+}
+
+.note-btns {
+  text-align: right;
+}
+
+.note-btn {
+  cursor: pointer;
+  background: none;
+  border: none;
+}
