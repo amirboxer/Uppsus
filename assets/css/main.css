@@ -17,9 +17,15 @@
 
 /* @import './apps/mail/pages/MailIndex.css'; */
 
-/* Cmps */
 
+/******** Cmps ******** /
+
+/*** note ***/
 @import './cmps/UserMsg.css';
 @import './cmps/AppHeader.css';
 
-/* @import './apps/mail/cmps/MailList.css'; */
+
+
+
+/*** mail ***/
+@import url('../../assets/css/apps/mail/mail.css');
