@@ -7,20 +7,27 @@ import { noteService } from '../services/note.service.js'
 const { useEffect, useState } = React
 
 export function NoteIndex() {
-  const [notes, setNotes] = useState(null)
+  const [notes, setNotes] = useState([])
 
   useEffect(() => {
     loadNotes()
   }, [])
 
   function loadNotes() {
-    console.log('testing:')
+    console.log('Loading notes...')
+    noteService
+      .query()
+      .then((notes) => {
+        setNotes(notes)
+      })
+      .catch((err) => {
+        console.error('Error loading notes:', err)
+      })
   }
 
   return (
     <section>
-      <NotePreview />
-      {/* <NoteAdd /> */}
+      <NotePreview notes={notes} />
     </section>
   )
 }
