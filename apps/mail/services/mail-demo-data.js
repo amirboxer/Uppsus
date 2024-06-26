@@ -1,76 +1,27 @@
 'use strict'
 // imports
-import { storageService } from "../../../services/async-storage.service.js"
+
+//############################### maybe change##############################################
 import { utilService } from "../../../services/util.service.js"
+//##########maybe#####maybe#######maybe######### maybe change##############################################
+
 
 export const mailService = {
-    query,
-    get,
-    remove,
-    save,
-    getFilterBy,
-    setFilterBy,
-    getNextMailId,
     generateDemoMails,
 }
 
 // +-+-+-+-+-+-+-+-+-+-+-+-  globals  +-+-+-+-+-+-+-+-+-+-+-+- // 
+//#############maybe################## maybe change####################maybe##########################
 const MAILS_LCS_KEY = 'MAILS_LCS_KEY'
 const USER_IDENTIFIERS = {
     email: 'user@appsus.com',
     fullname: 'Mahatma Appsus'
 }
+//########maybe######maybe#######maybe########## maybe change###############maybe##########maybe#####################
 
-// +-+-+-+-+-+-+-+-+-+-+-+- data queries +-+-+-+-+-+-+-+-+-+-+-+-//
-function query() {
-    return storageService.query(MAILS_LCS_KEY)
-    // .then(mails => {
-    //     if (gFilterBy.title) {
-    //         const regex = new RegExp(gFilterBy.title, 'i')
-    //         mails = mails.filter(mail => regex.test(mail.title))
-    //     }
-
-    //     return mails
-    // })
-}
-
-function get(BookId) {
-    return storageService.get(MAILS_LCS_KEY, BookId)
-}
-
-function remove(bookId) {
-    return storageService.remove(MAILS_LCS_KEY, bookId)
-}
-
-function save(book) {
-    if (book.id) {
-        return storageService.put(MAILS_LCS_KEY, book)  // AKA update element
-    } else {
-        return storageService.post(MAILS_LCS_KEY, book) // AKA add new element
-    }
-}
-
-function getFilterBy() {   // copoy of filters
-    return { ...gFilterBy }
-}
-
-function setFilterBy(filterBy = {}) {
-    // if (filterBy.title !== undefined) gFilterBy.title = filterBy.title
-
-    // if (filterBy.maxPrice !== undefined) gFilterBy.maxPrice = filterBy.maxPrice
-    return gFilterBy
-}
-
-function getNextMailId(mailId) {
-    return storageService.query(MAILS_LCS_KEY)
-        .then(mails => {
-            let nextBookIdx = mails.findIndex(car => car.id === mailId) + 1
-            return mails[nextBookIdx % mails.length].id
-        })
-}
 
 // +-+-+-+-+-+-+-+-+-+-+-+- demo data +-+-+-+-+-+-+-+-+-+-+-+-//
-function generateDemoMails(mailCount = 40) {
+function generateDemoMails(mailCount = 400) {   // only numbers that are diveded by 4
     // check if there are any mails im lcl storage
     let mails = utilService.loadFromStorage(MAILS_LCS_KEY)
     if (!(!mails || !mails.length)) return

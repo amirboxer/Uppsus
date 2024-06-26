@@ -1,4 +1,66 @@
+/* helpers */
+.clean-ul {
+    list-style-type: none;
+}
 
-/* cmp */
-@import url('./cmps/MailTable.css');
-@import url('./cmps/MailPreview.css');
+.hidden {
+    display: none;
+}
+
+/* mail-preview */
+.mail-preview {
+    padding-block: 10px;
+}
+
+.mail-preview-text-contents{
+    display: grid;
+    grid-template-columns: minmax(0, max-content) 1fr;
+}
+
+.subject, .body {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.sentAt {
+    justify-self: end;
+    padding-inline-start: 28px;
+    padding-inline-end: 16px;
+}
+
+.unread {
+    font-weight: bold;
+}
+
+
+
+/* mail-List */
+.mail-list {
+    display: grid;
+    grid-template-columns: 1fr;
+}
+
+
+/* mail previews */
+.list-row {
+    display: grid;
+    grid-template-columns: 200px 1fr max-content;
+    background-color: aqua;
+    gap: none;
+    align-items: center
+}
+
+.list-row:hover {
+    .operations-bar {
+        justify-self: end;
+        background-color: bisque;
+        display: grid;
+        grid-auto-flow: column;
+        justify-content: end;
+    }
+}
+
+.list-row:hover> :nth-child(3) {
+    display: none;
+}

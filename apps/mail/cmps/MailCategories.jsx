@@ -1,11 +1,9 @@
 export function MailCategories() {
     return (
-        <thead>
-            <tr className="mail-categories">
-                <th className="mail-categorie">Primary</th>
-                <th className="mail-categorie">Promotions</th>
-                <th className="mail-categorie">Social</th>
-            </tr>
-        </thead>
+        <ul className="mail-categories clean-ul">
+            <li className="mail-categorie">Primary</li>
+            <li className="mail-categorie">Promotions</li>
+            <li className="mail-categorie">Social</li>
+        </ul>
     )
 }

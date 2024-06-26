@@ -3,7 +3,7 @@
 import { mailService } from '../services/mail.service.js'
 mailService.generateDemoMails()
 // jsx components
-import { MailTable } from '../cmps/MailTable.jsx'
+import { MailList } from '../cmps/MailList.jsx'
 import { MailFolderList } from '../cmps/MailFolderList.jsx'
 
 // react
@@ -21,6 +21,7 @@ export function MailIndex() {
 
     // count unraed
     useEffect(() => {
+        console.log(mails.length)
         setUnreadCount(countUnread())
     }, [mails])
 
@@ -59,7 +60,7 @@ export function MailIndex() {
             <MailFolderList
                 unreadCount={unreadCount} />
 
-            <MailTable
+            <MailList
                 mails={mails}
                 deleteMail={deleteMail}
                 toggleIsRead={toggleIsRead} />

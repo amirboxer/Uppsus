@@ -1,15 +1,20 @@
 export function OperationsBar({ deleteMail, toggleIsRead, mail }) {
 
-    function preventPropagate(callbac) {
-        return event =>  {
-            
-        }
+    function onClickDeleteMail(ev) {
+        ev.stopPropagation()
+        deleteMail(mail.id)
     }
+
+    function onClickToggleUnread(ev) {
+        ev.stopPropagation()
+        toggleIsRead(mail)
+    }
+
     return (
-        <td className="operations-bar">
-            <div className="mail-preview icon" onClick={() => deleteMail(mail.id)}>Delete</div>
-            <div className="mail-preview icon" onClick={() => toggleIsRead(mail)}>Mark as {mail.isRead ? 'un' : ''}read</div>
-        </td>
+        <ul className="operations-bar clean-ul hidden">
+            <li className="mail-preview" onClick={onClickDeleteMail}>Delete</li>
+            <li className="mail-preview" onClick={onClickToggleUnread}>Mark as {mail.isRead ? 'un' : ''}read</li>
+        </ul>
     )
 }
 
