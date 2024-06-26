@@ -4,6 +4,7 @@ import { utilService } from '../../../services/util.service.js'
 import { storageService } from '../../../services/async-storage.service.js'
 
 const NOTE_KEY = 'noteDB'
+_createDemoNotes()
 
 export const noteService = {
   query,
@@ -113,6 +114,35 @@ function _createNote(title, txt, url, src) {
   note.info = {
     title: title,
     txt: txt,
+    url: url,
+    src: src,
+  }
+  return note
+}
+
+function _createDemoNotes() {
+  let notes = utilService.loadFromStorage(NOTE_KEY)
+  if (!notes || !notes.length) {
+    notes = []
+    for (let i = 0; i < 5; i++) {
+      notes.push(_createDemoNote())
+    }
+    utilService.saveToStorage(NOTE_KEY, notes)
+  }
+}
+
+function _createDemoNote(title, txt, url, src) {
+  const note = {}
+  note.id = utilService.makeId()
+  note.createdAt = Date.now()
+  note.type = 'NoteTxt'
+  note.isPinned = false
+  note.style = {
+    backgroundColor: utilService.getRandomColor(),
+  }
+  note.info = {
+    title: utilService.makeLorem(4),
+    txt: utilService.makeLorem(2),
     url: url,
     src: src,
   }
