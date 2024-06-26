@@ -6,7 +6,9 @@ export const utilService = {
     padNum,
     getDayName,
     getMonthName,
+    getTimeDisplay,
 }
+
 
 function makeId(length = 6) {
     var txt = ''
@@ -53,10 +55,38 @@ function getDayName(date, locale) {
     return date.toLocaleDateString(locale, { weekday: 'long' })
 }
 
-
 function getMonthName(date) {
     const monthNames = ["January", "February", "March", "April", "May", "June",
         "July", "August", "September", "October", "November", "December"
     ]
     return monthNames[date.getMonth()]
+}
+
+
+// Time operations 
+function _getTimings(timeStamp) {
+    const time = new Date(timeStamp)
+    return {
+        year: time.getFullYear(),
+        monthString: getMonthName(time),
+        monthNumber: padNum(time.getMonth() + 1),
+        dayOfMonth: time.getDate(),
+        hours: padNum(time.getHours()),
+        minutes: padNum(time.getMinutes()),
+    }
+}
+
+function getTimeDisplay(timeStamp) {  // timestamp shound be a number
+    const now = _getTimings(Date.now())
+    const t = _getTimings(timeStamp)
+
+    // is today:
+    if (now.year === t.year) {
+        if (now.monthString === t.monthString && now.dayOfMonth === t.dayOfMonth) {
+            // Todoay
+            return `${t.hours}:${t.minutes}`
+        }
+        return `${t.dayOfMonth} ${t.monthString}`
+    }
+    return `${t.dayOfMonth}/${t.monthNumber}/${t.year}`
 }
