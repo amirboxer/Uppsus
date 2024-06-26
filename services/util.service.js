@@ -98,6 +98,7 @@ function getMonthName(date) {
     'April',
     'May',
     'June',
+    'June2',
     'July',
     'August',
     'September',
