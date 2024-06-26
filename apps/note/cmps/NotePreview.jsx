@@ -14,7 +14,7 @@ export function NotePreview({ notes, onRemoveNote }) {
           <div className="note-btns">
             <button onClick={() => onRemoveNote(note.id)} className="note-btn">
               <img
-                src="./assets/img/noteicons/delete.png"
+                src="../../assets/img/noteicons/delete.png"
                 alt="Delete Button"
               />
             </button>
@@ -25,7 +25,7 @@ export function NotePreview({ notes, onRemoveNote }) {
               />
             </button>
             <button className="note-btn">
-              <img src="../assets/img/noteicons/pin.png" alt="Pin Button" />
+              <img src="../../../assets/img/noteicons/pin.png" alt="Pin Button" />
             </button>
           </div>
         </div>
