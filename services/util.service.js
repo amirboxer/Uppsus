@@ -108,3 +108,41 @@ function getMonthName(date) {
   ]
   return monthNames[date.getMonth()]
 }
+
+// Time operations 
+function _getTimings(timeStamp) {
+  const time = new Date(timeStamp)
+  return {
+      year: time.getFullYear(),
+      monthString: getMonthName(time),
+      monthNumber: padNum(time.getMonth() + 1),
+      dayOfMonth: time.getDate(),
+      hours: padNum(time.getHours()),
+      minutes: padNum(time.getMinutes()),
+  }
+}
+
+function getTimeDisplay(timeStamp) {  // timestamp shound be a number
+  const now = _getTimings(Date.now())
+  const t = _getTimings(timeStamp)
+
+  // is today:
+  if (now.year === t.year) {
+      if (now.monthString === t.monthString && now.dayOfMonth === t.dayOfMonth) {
+          // Todoay
+          return `${t.hours}:${t.minutes}`
+      }
+      return `${t.dayOfMonth} ${t.monthString}`
+  }
+  return `${t.dayOfMonth}/${t.monthNumber}/${t.year}`
+}
+
+// From Storage service ##############################################################
+function saveToStorage(key, val) {
+  localStorage.setItem(key, JSON.stringify(val))
+}
+
+function loadFromStorage(key) {
+  var val = localStorage.getItem(key)
+  return JSON.parse(val)
+}
