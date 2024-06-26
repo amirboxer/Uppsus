@@ -4,7 +4,7 @@ import { utilService } from '../../../services/util.service.js'
 import { storageService } from '../../../services/async-storage.service.js'
 
 const NOTE_KEY = 'noteDB'
-_createDemoNotes()
+_createNotes()
 
 export const noteService = {
   query,
@@ -43,6 +43,7 @@ function save(note) {
   } else {
     console.log('noteBeforeSave', note)
     note = _createNote(note.title, note.txt, note.url, note.src)
+    console.log('note:',note);
     return storageService.post(NOTE_KEY, note)
   }
 }
@@ -54,42 +55,15 @@ function getEmptyNote() {
 function _createNotes() {
   let notes = utilService.loadFromStorage(NOTE_KEY)
   if (!notes || !notes.length) {
-    notes = demoNotes
-
-    utilService.saveToStorage(NOTE_KEY, notes)
-  }
-}
-
-function _createNote(title, txt, url, src) {
-  const note = {}
-  note.id = utilService.makeId()
-  note.createdAt = Date.now()
-  note.type = 'NoteTxt'
-  note.isPinned = false
-  note.style = {
-    backgroundColor: utilService.getRandomColor(),
-  }
-  note.info = {
-    title: title,
-    txt: txt,
-    url: url,
-    src: src,
-  }
-  return note
-}
-
-function _createDemoNotes() {
-  let notes = utilService.loadFromStorage(NOTE_KEY)
-  if (!notes || !notes.length) {
     notes = []
     for (let i = 0; i < 5; i++) {
-      notes.push(_createDemoNote())
+      notes.push(_createNote())
     }
     utilService.saveToStorage(NOTE_KEY, notes)
   }
 }
 
-function _createDemoNote(title, txt, url, src) {
+function _createNote(title, txt, url, src) {
   const newNote = {
     id: utilService.makeId(),
     createdAt: Date.now(),
@@ -99,8 +73,8 @@ function _createDemoNote(title, txt, url, src) {
       backgroundColor: utilService.getRandomColor(),
     },
     info: {
-      title: utilService.makeLorem(1),
-      txt: utilService.makeLorem(5),
+      title: title || utilService.makeLorem(1),
+      txt: txt || utilService.makeLorem(5),
       url: url,
       src: src,
     },
