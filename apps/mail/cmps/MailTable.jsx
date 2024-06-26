@@ -10,7 +10,7 @@ export function MailTable({ mails, deleteMail, toggleIsRead }) {
     //     </tr>
     //   </thead>
     return (
-        <table className="mail-data mail-table">
+        <table className="mail-table">
             {/* caption */}
             <caption style={{ captionSide: 'bottom', padding: '10px' }}>
                 Last used:

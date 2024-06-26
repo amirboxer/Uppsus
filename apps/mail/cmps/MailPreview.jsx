@@ -7,11 +7,13 @@ import { OperationsBar } from "./OperationBar.jsx"
 
 export function MailPreview({ mail, deleteMail, toggleIsRead }) {
     return (
-        <tr className="mail-data table-row">
-            <td className={`mail-data from ${mail.isRead ? 'isRead' : ''}`}>{mail.from}</td>
-            <td className={`mail-data subject ${mail.isRead ? 'isRead' : ''}`}>{mail.subject}</td>
-            <td className={`mail-data body`}>{mail.body}</td>
-            <td className={`mail-data sentAt`}>{utilService.getTimeDisplay(mail.sentAt)}</td>
+        // <button><Link to={`/bookIndex/BookDetails/${book.id}`}>More Details</Link></button>
+
+        <tr className="mail-data table-row" onClick={() => console.log('rowclick')}>
+            <td className={`mail-preview from ${mail.isRead ? '' : 'unread'}`}>{mail.from}</td>
+            <td className={`mail-preview subject ${mail.isRead ? '' : 'unread'}`}>{mail.subject}</td>
+            <td className={`mail-preview body`}>{mail.body}</td>
+            <td className={`mail-preview sentAt`}>{utilService.getTimeDisplay(mail.sentAt)}</td>
             <OperationsBar
                 deleteMail={deleteMail}
                 toggleIsRead={toggleIsRead}

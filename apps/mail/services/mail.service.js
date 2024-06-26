@@ -16,7 +16,10 @@ export const mailService = {
 
 // +-+-+-+-+-+-+-+-+-+-+-+-  globals  +-+-+-+-+-+-+-+-+-+-+-+- // 
 const MAILS_LCS_KEY = 'MAILS_LCS_KEY'
-var gFilterBy = {} // TODO
+const USER_IDENTIFIERS = {
+    email: 'user@appsus.com',
+    fullname: 'Mahatma Appsus'
+}
 
 // +-+-+-+-+-+-+-+-+-+-+-+- data queries +-+-+-+-+-+-+-+-+-+-+-+-//
 function query() {
@@ -75,31 +78,40 @@ function generateDemoMails(mailCount = 400) {
     // else, create demo data
     let curIdNum = 0
     mails = []
-    for (let i = 0; i < mailCount; ++i) {
-        mails.push(_generateRandomEmail(`e${curIdNum++}`))
+
+    // Incoming emails
+    for (let i = 0; i < mailCount * 0.75; ++i) {
+        mails.push(_generateUserRandomEmail(`e${curIdNum++}`))
     }
+
+    // outgoing emails
+    for (let i = 0; i < mailCount * 0.25; ++i) {
+        mails.push(_generateUserRandomEmail(`e${curIdNum++}`, true))
+    }
+
     mails.sort((m1, m2) => m2.sentAt - m1.sentAt)
     // store in lcs
     utilService.saveToStorage(MAILS_LCS_KEY, mails)
 }
 
-function _generateRandomEmail(id) {
+function _generateUserRandomEmail(id, userEmails = false) {
     const twoYears = 60 * 60 * 24 * 365 * 2 * 1000
     const onWeek = 60 * 60 * 24 * 7 * 1000
     const today = Date.now()
     const sentAt = utilService.getRandomIntInclusive(today - twoYears, today)
     return {
         id,
-        createdAt: Math.random() > 0.3 ? null : utilService.getRandomIntInclusive(sentAt - onWeek, sentAt),
+        createdAt: Math.random() > utilService.getRandomIntInclusive(sentAt - onWeek, sentAt),
         subject: _generateRandomEmailSubject(),
         body: _generateRandomEmailBody(),
-        isRead: Math.random() > 0.4 ? true : false,
+        isRead: userEmails ? true : Math.random() > 0.4 ? true : false,
         sentAt,
-        removedAt: Math.random() > 0.5 ? null : utilService.getRandomIntInclusive(sentAt, today),
-        from: _generateRandomEmailAddress(),
+        removedAt: Math.random() > 0.7 ? null : utilService.getRandomIntInclusive(sentAt, today),
+        from: userEmails ? USER_IDENTIFIERS.email : _generateRandomEmailAddress(),
         to: _generateRandomEmailAddress(),
     }
 }
+
 
 function _generateRandomEmailSubject() {
     const adjectives = ['Important', 'Urgent', 'New', 'Updated', 'Final', 'Weekly', 'Monthly'];
