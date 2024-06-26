@@ -1,7 +1,7 @@
 import { MailPreview } from './MailPreview.jsx'
-import { MailCategories} from './MailCategories.jsx'
+import { MailCategories } from './MailCategories.jsx'
 
-export function MailTable({ mails }) {
+export function MailTable({ mails, deleteMail, toggleIsRead }) {
 
     //     <thead>
     //     <tr>
@@ -11,13 +11,23 @@ export function MailTable({ mails }) {
     //   </thead>
     return (
         <table className="mail-data mail-table">
+            {/* caption */}
             <caption style={{ captionSide: 'bottom', padding: '10px' }}>
                 Last used:
                 memeory used:
             </caption>
-            <MailCategories/>
+
+            {/* categories */}
+            <MailCategories />
+
+            {/* mails */}
             <tbody>
-                {mails.map(mail => <MailPreview mail={mail} key={mail.id} />)}
+                {mails.map(mail =>
+                    <MailPreview
+                        mail={mail}
+                        deleteMail={deleteMail}
+                        toggleIsRead={toggleIsRead}
+                        key={mail.id} />)}
             </tbody>
 
         </table >

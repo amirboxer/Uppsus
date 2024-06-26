@@ -1,12 +1,9 @@
-import {MailFilter} from './MailFilter.jsx'
-
-export function OperationBar() {
-    
+export function OperationsBar({ deleteMail, toggleIsRead, mail }) {
     return (
-        <ul className="mail-folder-list">
-            <li>Delete</li>
-            <li>Mark as read</li>
-            <li>Mark as unread</li>
-        </ul>
+        <td className="operations-bar">
+            <div className="mail-data" onClick={() => deleteMail(mail.id)}>Delete</div>
+            <div className="mail-data" onClick={() => toggleIsRead(mail)}>Mark as {mail.isRead ? 'un' : ''}read</div>
+        </td>
     )
 }
+

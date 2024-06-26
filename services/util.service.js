@@ -121,9 +121,9 @@ function _getTimings(timeStamp) {
   }
 }
 
-function getTimeDisplay(timeStamp) {  // timestamp shound be a number
+function getTimeDisplay(timeStamp) {
   const now = _getTimings(Date.now())
-  const t = _getTimings(timeStamp)
+  const t = _getTimings(+timeStamp)
 
   // is today:
   if (now.year === t.year) {

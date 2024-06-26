@@ -1,9 +1,4 @@
-
-
-
 export function MailFolderList({ unreadCount }) {
-
-
     return (
         <ul className="mail-folder-list">
             <li><div className="folder inbox">Inbox</div><span className="unread-count">{unreadCount}</span></li>
@@ -13,5 +8,4 @@ export function MailFolderList({ unreadCount }) {
             <li><div className="folder trash">Trash</div></li>
         </ul>
     )
-
 }

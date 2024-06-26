@@ -1,6 +1,6 @@
 'use strict'
 // imports
-import {storageService} from "../../../services/async-storage.service.js"
+import { storageService } from "../../../services/async-storage.service.js"
 import { utilService } from "../../../services/util.service.js"
 
 export const mailService = {
@@ -21,14 +21,14 @@ var gFilterBy = {} // TODO
 // +-+-+-+-+-+-+-+-+-+-+-+- data queries +-+-+-+-+-+-+-+-+-+-+-+-//
 function query() {
     return storageService.query(MAILS_LCS_KEY)
-        // .then(mails => {
-        //     if (gFilterBy.title) {
-        //         const regex = new RegExp(gFilterBy.title, 'i')
-        //         mails = mails.filter(mail => regex.test(mail.title))
-        //     }
+    // .then(mails => {
+    //     if (gFilterBy.title) {
+    //         const regex = new RegExp(gFilterBy.title, 'i')
+    //         mails = mails.filter(mail => regex.test(mail.title))
+    //     }
 
-        //     return mails
-        // })
+    //     return mails
+    // })
 }
 
 function get(BookId) {
@@ -66,7 +66,6 @@ function getNextMailId(mailId) {
         })
 }
 
-
 // +-+-+-+-+-+-+-+-+-+-+-+- demo data +-+-+-+-+-+-+-+-+-+-+-+-//
 function generateDemoMails(mailCount = 400) {
     // check if there are any mails im lcl storage
@@ -79,21 +78,24 @@ function generateDemoMails(mailCount = 400) {
     for (let i = 0; i < mailCount; ++i) {
         mails.push(_generateRandomEmail(`e${curIdNum++}`))
     }
-
+    mails.sort((m1, m2) => m2.sentAt - m1.sentAt)
     // store in lcs
     utilService.saveToStorage(MAILS_LCS_KEY, mails)
 }
 
 function _generateRandomEmail(id) {
-    const sentAt = utilService.getRandomIntInclusive(0, Date.now())
+    const twoYears = 60 * 60 * 24 * 365 * 2 * 1000
+    const onWeek = 60 * 60 * 24 * 7 * 1000
+    const today = Date.now()
+    const sentAt = utilService.getRandomIntInclusive(today - twoYears, today)
     return {
         id,
-        createdAt:  utilService.getRandomIntInclusive(0, sentAt),
+        createdAt: Math.random() > 0.3 ? null : utilService.getRandomIntInclusive(sentAt - onWeek, sentAt),
         subject: _generateRandomEmailSubject(),
         body: _generateRandomEmailBody(),
         isRead: Math.random() > 0.4 ? true : false,
         sentAt,
-        removedAt: Math.random() >  0.5 ? null : utilService.getRandomIntInclusive(sentAt, Date.now()),
+        removedAt: Math.random() > 0.5 ? null : utilService.getRandomIntInclusive(sentAt, today),
         from: _generateRandomEmailAddress(),
         to: _generateRandomEmailAddress(),
     }
