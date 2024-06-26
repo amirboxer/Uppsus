@@ -1,13 +1,12 @@
 import { noteService } from '../services/note.service.js'
 import { utilService } from '../../../services/util.service.js'
 
-const { useParams, useNavigate } = ReactRouter
+const { useEffect, useState } = React
 
 export function NoteAdd() {
   const cmps = ['NoteTxt', 'NoteImg', 'NoteTodos', 'NoteVideo']
   const [newNote, setNewNote] = useState(noteService.getEmptyNote())
   const [cmpInput, setCmpInput] = useState('NoteTxt')
-
 
   function onChangeCmp(type) {
     setCmpInput(type)
