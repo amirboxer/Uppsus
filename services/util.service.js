@@ -6,6 +6,7 @@ export const utilService = {
   padNum,
   getDayName,
   getMonthName,
+  getTimeDisplay,
   loadFromStorage,
   saveToStorage,
 }
@@ -105,13 +106,4 @@ function getMonthName(date) {
     'December',
   ]
   return monthNames[date.getMonth()]
-}
-
-function saveToStorage(key, value) {
-  localStorage.setItem(key, JSON.stringify(value))
-}
-
-function loadFromStorage(key) {
-  const data = localStorage.getItem(key)
-  return data ? JSON.parse(data) : undefined
 }
