@@ -1,6 +1,5 @@
 import { MailPreview } from './MailPreview.jsx'
 import { MailCategories } from './MailCategories.jsx'
-import {selectorsBar} from './selectorsBar.jsx'
 
 export function MailList({ mails, deleteMail, toggleIsRead }) {
     return (
@@ -21,6 +20,3 @@ export function MailList({ mails, deleteMail, toggleIsRead }) {
         </section >
     )
 }
-
-
-

@@ -4,8 +4,9 @@ import { mailService } from '../services/mail.service.js'
 mailService.generateDemoMails()
 // jsx components
 import { MailList } from '../cmps/MailList.jsx'
-import { MailFolderList } from '../cmps/MailFolderList.jsx'
+import { MailNavigation } from '../cmps/MailFolderList.jsx'
 import { MailSearch } from '../cmps/MailSearch.jsx'
+import {MailCompose} from '../cmp/MailCompose.jsx'
 
 // react
 const { useEffect, useState } = React
@@ -63,18 +64,21 @@ export function MailIndex() {
             <MailSearch
                 prevPattern={searchPattern}
                 setPrevPattern={setSearchPattern} />
-            {/* side folders section */}
-            <MailFolderList
-                unreadCount={unreadCount} />
 
+            {/* side bar */}
+            <div className='side-bar'>
+                <MailCompose />
+
+                <MailNavigation
+                    unreadCount={unreadCount} />
+            </div>
 
             {/* preview list */}
             <div className="previews-conrainer">
-                <MailList
+                <MailList 
                     mails={mails}
                     deleteMail={deleteMail}
                     toggleIsRead={toggleIsRead} />
-
             </div>
         </section>
     )

@@ -33,13 +33,11 @@ export function MailPreview({ mail, deleteMail, toggleIsRead }) {
 
     return (
         <article className={`list-row ${mail.isRead ? '' : 'unread'} ${selected ? 'selected' : ''}`}>
-            {/* selected */}
-
-            <button className={`mail-preview mail-operation material-icons ${starred ? 'starred' : ''}`} onClick={() => toggleStarred(mail)}>{starred ? 'star' : 'star_outline'}</button>
-
             {/* starred */}                                                                      
-            <button className="mail-preview mail-operation material-icons" onClick={toggleSelected}>{selected ? 'check_box_outline_blank' : <span class="material-icons-outlined">check_box</span>}</button>
-
+            <button className="mail-preview mail-operation material-icons" onClick={toggleSelected}>{selected ? 'check' : 'check_box_outline_blank'}</button>
+            
+            {/* selected */}
+            <button className={`mail-preview mail-operation material-icons ${starred ? 'starred' : ''}`} onClick={() => toggleStarred(mail)}>{starred ? 'star' : 'star_outline'}</button>
 
             {/* mail origin */}
             <Link to={`/mail/inbox/${mail.id}`} className="list-link">

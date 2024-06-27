@@ -7,7 +7,6 @@
     display: none;
 }
 
-
 /* operations-bar */
 .mail-operation {
     cursor: pointer;
@@ -36,11 +35,14 @@
     text-overflow: ellipsis;
 }
 
-
 button.mail-preview {
     background-color: transparent;
     font-size: 0.875rem;
-    line-height: -10px;
+    padding-inline-end: 0.7rem;
+}
+
+button.mail-preview:first-child {
+    padding-inline-start: 0.8rem;
 }
 
 .sentAt {
@@ -78,7 +80,6 @@ button.mail-preview {
     scrollbar-width: thin;
     height: 80vh;
 }
-
 
 /* mail previews */
 .list-row {
@@ -119,14 +120,17 @@ button.mail-preview {
     font-family: Roboto-Regular;
     padding-right: 2rem;
     width: 100%;
-padding-bottom: 100px;
+    padding-bottom: 100px;
     display: grid;
     grid-template-columns: max-content 1fr;
 }
 
 /* side bar */
-.mail-folder-list {
+.side-bar {
     grid-column: 1;
+}
+
+.mail-navigation-list {
 }
 
 /* search-bar */
