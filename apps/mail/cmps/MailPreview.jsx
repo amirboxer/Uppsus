@@ -11,47 +11,38 @@ const { Link } = ReactRouterDOM
 
 export function MailPreview({ mail, deleteMail, toggleIsRead }) {
     return (
-        <ul className="clean-ul list-row">
+        <article className="clean-ul list-row">
 
             {/* mail origin */}
             <Link to={`/mail/inbox/${mail.id}`} className="list-link">
-                <li className={`mail-preview from ${mail.isRead ? '' : 'unread'}`}>
+                <div className={`mail-preview from ${mail.isRead ? '' : 'unread'}`}>
                     {mail.from}
-                </li>
+                </div>
             </Link>
 
             {/* mail subject */}
             <Link to={`/mail/inbox/${mail.id}`} className="list-link">
 
-                <li className="mail-preview-text-contents">
+                <div className="mail-preview-text-contents">
                     <p className={`mail-preview subject ${mail.isRead ? '' : 'unread'}`}> {mail.subject}</p> 
                     <p className="mail-preview body"> - {mail.body}</p>
-                </li>
+                </div>
             </Link>
-
-
-            {/* mail main text */}
-            {/* <Link to={`/mail/inbox/${mail.id}`} className="list-link">
-
-                <li className={`mail-preview body`}>
-                    {mail.body}
-                </li>
-            </Link> */}
 
             {/* mail time stamp */}
             <Link to={`/mail/inbox/${mail.id}`} className="list-link-sentAt">
-                <li className={`mail-preview sentAt`}>
+                <div className={`mail-preview sentAt ${mail.isRead ? '' : 'unread'}`}>
                     {utilService.getTimeDisplay(mail.sentAt)}
-                </li>
+                </div>
             </Link>
 
             {/* mail operations */}
-            <li>
+            <div>
                 <OperationsBar
                     deleteMail={deleteMail}
                     toggleIsRead={toggleIsRead}
                     mail={mail} />
-            </li>
-        </ul>
+            </div>
+        </article>
     )
 }
