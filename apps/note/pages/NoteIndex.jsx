@@ -77,7 +77,6 @@ export function NoteIndex() {
         onRemoveNote={onRemoveNote}
         onColorChange={onColorChange}
       />
-
     </section>
   )
 }

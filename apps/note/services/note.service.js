@@ -89,22 +89,22 @@ function getDefaultFilter() {
 
 function getKeepRandomColor() {
   const colors = [
-    '#B4FF9F', // Existing color
-    '#F9FFA4', // Existing color
-    '#FFD59E', // Existing color
-    '#FFA1A1', // Existing color
-    '#FFF475', // Google Keep yellow
-    '#F28B82', // Google Keep red
-    '#FBBC04', // Google Keep orange
-    '#FFF475', // Google Keep yellow
-    '#CCFF90', // Google Keep green
-    '#A7FFEB', // Google Keep teal
-    '#CBF0F8', // Google Keep blue
-    '#AECBFA', // Google Keep dark blue
-    '#D7AEFB', // Google Keep purple
-    '#FDCFE8', // Google Keep pink
-    '#E6C9A8', // Google Keep brown
-    '#E8EAED', // Google Keep gray
+    '#B4FF9F',
+    '#F9FFA4',
+    '#FFD59E',
+    '#FFA1A1',
+    '#FFF475',
+    '#F28B82',
+    '#FBBC04',
+    '#FFF475',
+    '#CCFF90',
+    '#A7FFEB',
+    '#CBF0F8',
+    '#AECBFA',
+    '#D7AEFB',
+    '#FDCFE8',
+    '#E6C9A8',
+    '#E8EAED',
   ]
   const randomIndex = Math.floor(Math.random() * colors.length)
   return colors[randomIndex]

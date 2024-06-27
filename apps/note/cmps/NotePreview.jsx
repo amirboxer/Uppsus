@@ -1,6 +1,6 @@
 const { useState } = React
 
-import { ColorInput } from "./ColorInput.jsx"
+import { ColorInput } from './ColorInput.jsx'
 
 export function NotePreview({
   notes,
