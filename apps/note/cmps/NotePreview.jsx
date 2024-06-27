@@ -28,6 +28,7 @@ export function NotePreview({ notes, onRemoveNote, onUpdateNote }) {
               className="note"
             >
               <input
+              className="note-edit-input"
                 type="text"
                 name="title"
                 value={editNoteData.txt}
@@ -41,7 +42,7 @@ export function NotePreview({ notes, onRemoveNote, onUpdateNote }) {
               />
               <button
                 onClick={() => handleSaveClick(note)}
-                className="note-btn"
+                className="note-btn note-btn-edit"
               >
                 Save
               </button>
@@ -53,6 +54,7 @@ export function NotePreview({ notes, onRemoveNote, onUpdateNote }) {
               key={note.id}
               style={{ backgroundColor: note.style.backgroundColor }}
               className="note"
+              onClick={() => handleEditClick(note)}
             >
               <h1 className="note-title">{note.info.title}</h1>
               {(note.type === 'NoteImg' || note.type === 'NoteTxt') &&
@@ -64,12 +66,6 @@ export function NotePreview({ notes, onRemoveNote, onUpdateNote }) {
                   className="note-btn"
                 >
                   <span className="material-symbols-outlined">delete</span>
-                </button>
-                <button
-                  onClick={() => handleEditClick(note)}
-                  className="note-btn"
-                >
-                  <span className="material-symbols-outlined">edit</span>
                 </button>
               </div>
             </div>
