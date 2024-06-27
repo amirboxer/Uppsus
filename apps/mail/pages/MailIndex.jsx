@@ -36,7 +36,6 @@ export function MailIndex() {
     function deleteMail(mailId) {
         mailService.remove(mailId)
             .then(setMails(prevMails => [...prevMails.filter(mail => mail.id !== mailId)]))
-
         // TODO show massages
     }
 
@@ -54,7 +53,6 @@ export function MailIndex() {
         // TODO show massages
     }
 
-
     return (
         <section className="mail-index">
             <MailFolderList
@@ -67,4 +65,3 @@ export function MailIndex() {
         </section>
     )
 }
-

@@ -11,10 +11,17 @@ export function OperationsBar({ deleteMail, toggleIsRead, mail }) {
     }
 
     return (
-        <ul className="operations-bar clean-ul hidden">
-            <li className="mail-preview" onClick={onClickDeleteMail}>Delete</li>
-            <li className="mail-preview" onClick={onClickToggleUnread}>Mark as {mail.isRead ? 'un' : ''}read</li>
-        </ul>
+        <div className="operations-bar hidden">
+            <div className="mail-preview mail-operation read-unread" onClick={onClickToggleUnread}>
+                {mail.isRead ?
+                    <span class="material-symbols-outlined ">drafts</span> :
+                    <span class="material-symbols-outlined">mark_email_unread</span>}
+            </div>
+            
+            <div className="mail-preview mail-operation delete" onClick={onClickDeleteMail}>
+                <span class="material-symbols-outlined">delete</span>
+            </div>
+        </div>
     )
 }
 

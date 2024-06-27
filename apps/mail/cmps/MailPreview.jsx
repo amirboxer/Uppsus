@@ -11,11 +11,11 @@ const { Link } = ReactRouterDOM
 
 export function MailPreview({ mail, deleteMail, toggleIsRead }) {
     return (
-        <article className="clean-ul list-row">
+        <article className={`list-row ${mail.isRead ? '' : 'unread'}`}>
 
             {/* mail origin */}
             <Link to={`/mail/inbox/${mail.id}`} className="list-link">
-                <div className={`mail-preview from ${mail.isRead ? '' : 'unread'}`}>
+                <div className="mail-preview from">
                     {mail.from}
                 </div>
             </Link>
@@ -24,14 +24,14 @@ export function MailPreview({ mail, deleteMail, toggleIsRead }) {
             <Link to={`/mail/inbox/${mail.id}`} className="list-link">
 
                 <div className="mail-preview-text-contents">
-                    <p className={`mail-preview subject ${mail.isRead ? '' : 'unread'}`}> {mail.subject}</p> 
-                    <p className="mail-preview body"> - {mail.body}</p>
+                    <div className="mail-preview subject"><p className="subject">{mail.subject}</p></div>
+                    <div className="mail-preview body mail-font-regular"><p className="body">&nbsp;-&nbsp;{mail.body}</p></div>
                 </div>
             </Link>
 
             {/* mail time stamp */}
             <Link to={`/mail/inbox/${mail.id}`} className="list-link-sentAt">
-                <div className={`mail-preview sentAt ${mail.isRead ? '' : 'unread'}`}>
+                <div className={`mail-preview sentAt`}>
                     {utilService.getTimeDisplay(mail.sentAt)}
                 </div>
             </Link>
