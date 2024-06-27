@@ -13,7 +13,7 @@ const { useEffect, useState } = React
 export function MailIndex() {
     const [mails, setMails] = useState([])
     const [unreadCount, setUnreadCount] = useState(0)
-    const [searchPattern, setSearchPattern] = useState({subject:''})
+    const [searchPattern, setSearchPattern] = useState({ subject: '' })
 
     // get mails
     useEffect(() => {
@@ -63,16 +63,19 @@ export function MailIndex() {
             <MailSearch
                 prevPattern={searchPattern}
                 setPrevPattern={setSearchPattern} />
-
             {/* side folders section */}
             <MailFolderList
                 unreadCount={unreadCount} />
 
-            {/* previre list */}
-            <MailList
-                mails={mails}
-                deleteMail={deleteMail}
-                toggleIsRead={toggleIsRead} />
+
+            {/* preview list */}
+            <div className="previews-conrainer">
+                <MailList
+                    mails={mails}
+                    deleteMail={deleteMail}
+                    toggleIsRead={toggleIsRead} />
+
+            </div>
         </section>
     )
 }
