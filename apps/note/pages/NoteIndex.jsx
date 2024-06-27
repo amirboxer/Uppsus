@@ -67,6 +67,19 @@ export function NoteIndex() {
       })
   }
 
+  function onDuplicateNote(duplicatedNote) {
+    noteService
+      .save(duplicatedNote)
+      .then((savedNote) => {
+        setNotes((prevNotes) => [...prevNotes, savedNote])
+        showSuccessMsg('Note duplicated successfully!')
+      })
+      .catch((err) => {
+        console.error('Error duplicating note:', err)
+        showErrorMsg('Having problems duplicating note!')
+      })
+  }
+
   if (!notes) return <div>Loading...</div>
   return (
     <section>
@@ -76,6 +89,7 @@ export function NoteIndex() {
         onUpdateNote={onUpdateNote}
         onRemoveNote={onRemoveNote}
         onColorChange={onColorChange}
+        onDuplicateNote={onDuplicateNote}
       />
     </section>
   )

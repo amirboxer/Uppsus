@@ -37,16 +37,46 @@ function remove(noteId) {
   return storageService.remove(NOTE_KEY, noteId)
 }
 
-function save(note) {
-  if (note.id) {
-    return storageService.put(NOTE_KEY, note)
-  } else {
-    console.log('noteBeforeSave', note)
-    note = _createNote(note.title, note.txt, note.url, note.src)
-    console.log('note:', note)
-    return storageService.post(NOTE_KEY, note)
-  }
-}
+
+      function save(note) {
+        if (note.id) {
+          return storageService.put(NOTE_KEY, note);
+        } else {
+          console.log('noteBeforeSave', note);
+      
+          const title = note.info ? note.info.title : note.title;
+          const txt = note.info ? note.info.txt : note.txt;
+          const url = note.info ? note.info.url : note.url;
+          const src = note.info ? note.info.src : note.src;
+          const backgroundColor = note.style ? note.style.backgroundColor : getKeepRandomColor();
+      
+          note = _createNote(title, txt, url, src, backgroundColor);
+          console.log('note:', note);
+          return storageService.post(NOTE_KEY, note);
+        }
+      }
+      
+      function _createNote(title, txt, url, src, backgroundColor) {
+        const newNote = {
+          id: utilService.makeId(),
+          createdAt: Date.now(),
+          type: 'NoteTxt',
+          isPinned: false,
+          style: {
+            backgroundColor: backgroundColor || getKeepRandomColor(),
+          },
+          info: {
+            title: title || 'Note',
+            txt: txt || '',
+            url: url || '',
+            src: src || '',
+          },
+        };
+      
+        return newNote;
+      }
+      
+      
 
 function getEmptyNote() {
   return { id: '', title: '', txt: '', url: '', src: '' }
@@ -63,25 +93,6 @@ function _createNotes() {
   }
 }
 
-function _createNote(title, txt, url, src) {
-  const newNote = {
-    id: utilService.makeId(),
-    createdAt: Date.now(),
-    type: 'NoteTxt',
-    isPinned: false,
-    style: {
-      backgroundColor: getKeepRandomColor(),
-    },
-    info: {
-      title: title || 'Note',
-      txt: txt || utilService.makeLorem(5),
-      url: url || '',
-      src: src || '',
-    },
-  }
-
-  return newNote
-}
 
 function getDefaultFilter() {
   return { txt: '' }

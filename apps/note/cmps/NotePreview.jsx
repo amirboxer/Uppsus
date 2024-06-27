@@ -7,10 +7,12 @@ export function NotePreview({
   onRemoveNote,
   onUpdateNote,
   onColorChange,
+  onDuplicateNote,
 }) {
   const [editedNoteId, setEditedNoteId] = useState(null)
   const [editNoteData, setEditNoteData] = useState({ title: '', txt: '' })
   const [showColorPickerForNoteId, setShowColorPickerForNoteId] = useState(null)
+  const [duplicate, setDuplicate] = useState(null)
 
   function handleEditClick(note) {
     console.log('Editing note:', note)
@@ -29,6 +31,17 @@ export function NotePreview({
     setShowColorPickerForNoteId(
       noteId === showColorPickerForNoteId ? null : noteId
     )
+  }
+
+  function handleDuplicateClick(note) {
+    const duplicatedNote = {
+      ...note,
+      id: null,
+      createdAt: Date.now(),
+      style: { ...note.style },
+      info: { ...note.info },
+    }
+    onDuplicateNote(duplicatedNote)
   }
 
   return (
@@ -88,6 +101,14 @@ export function NotePreview({
                   onClick={() => handleColorClick(note.id)}
                 >
                   <span className="material-symbols-outlined">palette</span>
+                </button>
+                <button
+                  className="note-btn"
+                  onClick={() => handleDuplicateClick(note)}
+                >
+                  <span className="material-symbols-outlined">
+                    control_point_duplicate
+                  </span>
                 </button>
               </div>
 
