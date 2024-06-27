@@ -67,7 +67,7 @@ export function MailIndex() {
 
             {/* side bar */}
             <div className='side-bar'>
-                <MailCompose />
+                
 
                 <MailNavigation
                     unreadCount={unreadCount} />
@@ -80,6 +80,7 @@ export function MailIndex() {
                     deleteMail={deleteMail}
                     toggleIsRead={toggleIsRead} />
             </div>
+            <MailCompose />
         </section>
     )
 }

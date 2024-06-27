@@ -58,6 +58,7 @@ button.mail-preview:first-child {
 
 .selected {
     background-color: #c2dbff;
+    box-shadow: inset 0px -1px 0px 0px #c2dbff;
 }
 
 .mail-font-regular {
@@ -91,6 +92,7 @@ button.mail-preview:first-child {
 }
 
 .list-row .unread {
+
     box-shadow: inset 0px -1px 0px 0px #e1e7ee;
 }
 
@@ -111,7 +113,6 @@ button.mail-preview:first-child {
 
 .starred {
     color: #e5bf4c;
-    /* color: #c3c4c4; */
 }
 
 /* mail index */
@@ -130,10 +131,92 @@ button.mail-preview:first-child {
     grid-column: 1;
 }
 
-.mail-navigation-list {
-}
+.mail-navigation-list {}
 
 /* search-bar */
 .search-bar {
     grid-column: 1 / -1;
+}
+
+/* mail compose */
+.mail-compose {
+    -moz-border-radius: 0px;
+    -webkit-border-radius: 8px 8px 0px 0px;
+    border-radius: 8px 8px 0px 0px;
+    position: fixed;
+    bottom: 0;
+    right: 2.7rem;
+    min-height: 40vh;
+    min-width: 483px;
+    filter: drop-shadow(0px 0px 5px #767676ae);
+
+    background-color: #ffffff;
+
+    display: grid;
+    grid-template-columns: 1rem 1fr 1rem;
+    grid-template-rows: 40px 40px 40px 1fr 60px;
+}
+
+.mail-compose>* {
+    grid-column: 2;
+}
+
+.mail-compose>*:not(:nth-child(4)) {
+    box-shadow: inset 0px -1px 0px 0px #eceff1;
+}
+
+.mail-compose>*:not(:nth-child(4))::placeholder {
+    font-family: Roboto-Regular;
+    font-size: 0.875rem;
+    height: 100%;
+}
+
+.mail-compose-head {
+    -moz-border-radius: 0px;
+    -webkit-border-radius: 8px 8px 0px 0px;
+    border-radius: 8px 8px 0px 0px;
+    background-color: #f2f6fc;
+    display: grid;
+    justify-content: space-between;
+    grid-auto-flow: column;
+    align-items: center;
+    grid-column: 1 / -1;
+    padding-inline: 1rem;
+
+    h2 {
+        font-family: Roboto-Regular;
+        font-size: 0.875rem;
+        color: #000000;
+        font-weight: 100;
+    }
+}
+
+.mail-compose>input,
+textarea {
+    /* justify-self: stretch; */
+    width: 100%;
+    /* border: none; */
+    outline: none;
+    background-color: #ffffff;
+}
+
+.mail-compose-body {
+    margin-block: 0.5rem;
+    line-height: 1.6;
+    font-family: arial;
+    resize: none;
+    align-self: stretch;
+}
+
+.send-btn {
+    height: 2.25rem;
+    width: 4.5rem;
+    color: white;
+    background-color: #0b57d0;
+    border-radius: 1.5rem;
+
+}
+
+.send-btn:hover {
+    filter: drop-shadow(0px 0px 3px #0e8fff87);
 }
