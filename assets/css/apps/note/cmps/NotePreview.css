@@ -23,6 +23,14 @@
   padding-bottom: 20px;
 }
 
+.note .note-btns {
+  opacity: 0;
+  transition: 200ms ease;
+}
+.note:hover .note-btns {
+  opacity: 1;
+}
+
 .note-btns {
   text-align: right;
 }

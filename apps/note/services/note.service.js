@@ -70,7 +70,7 @@ function _createNote(title, txt, url, src) {
     type: 'NoteTxt',
     isPinned: false,
     style: {
-      backgroundColor: utilService.getRandomColor(),
+      backgroundColor: getKeepRandomColor(),
     },
     info: {
       title: title || 'Note',
@@ -85,4 +85,27 @@ function _createNote(title, txt, url, src) {
 
 function getDefaultFilter() {
   return { txt: '' }
+}
+
+function getKeepRandomColor() {
+  const colors = [
+    '#B4FF9F', // Existing color
+    '#F9FFA4', // Existing color
+    '#FFD59E', // Existing color
+    '#FFA1A1', // Existing color
+    '#FFF475', // Google Keep yellow
+    '#F28B82', // Google Keep red
+    '#FBBC04', // Google Keep orange
+    '#FFF475', // Google Keep yellow
+    '#CCFF90', // Google Keep green
+    '#A7FFEB', // Google Keep teal
+    '#CBF0F8', // Google Keep blue
+    '#AECBFA', // Google Keep dark blue
+    '#D7AEFB', // Google Keep purple
+    '#FDCFE8', // Google Keep pink
+    '#E6C9A8', // Google Keep brown
+    '#E8EAED', // Google Keep gray
+  ]
+  const randomIndex = Math.floor(Math.random() * colors.length)
+  return colors[randomIndex]
 }

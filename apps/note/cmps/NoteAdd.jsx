@@ -41,6 +41,7 @@ export function NoteAdd({ loadNotes }) {
       setNewNote(noteService.getEmptyNote())
     })
   }
+  
   return (
     <section className="add-note-main">
       <form className="note-form" onSubmit={onSaveNote}>
