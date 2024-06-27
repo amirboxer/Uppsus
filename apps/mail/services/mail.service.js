@@ -128,7 +128,6 @@ function _generateRandomEmailSubject() {
     return subject;
 }
 
-
 function _generateRandomEmailBodyd() {
     const subjects = ['The project', 'Your request', 'Our meeting', 'The document', 'Your feedback', 'The team', 'Your appointment'];
     const verbs = ['has been approved', 'was discussed', 'needs attention', 'has been completed', 'is pending', 'requires review', 'has been rescheduled', 'was canceled', 'is happaing', 'will be ok', 'awaring approval'];
@@ -144,15 +143,6 @@ function _generateRandomEmailBodyd() {
 
     return sentence;
 }
-
-
-
-
-
-
-
-
-
 
 function _generateRandomEmailBody() {
     const introPhrases = [
