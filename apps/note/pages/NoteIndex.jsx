@@ -45,10 +45,26 @@ export function NoteIndex() {
       })
   }
 
+  function onUpdateNote(noteToUpdate) {
+    noteService
+      .save(noteToUpdate)
+      .then((savedNote) => {
+        console.log('updated')
+      })
+      .catch((err) => {
+        console.error('err', err)
+      })
+  }
+
+  if (!notes) return <div>Loading...</div>
   return (
     <section>
-      <NoteAdd />
-      <NotePreview notes={notes} onRemoveNote={onRemoveNote} />
+      <NoteAdd loadNotes={loadNotes} />
+      <NotePreview
+        notes={notes}
+        onUpdateNote={onUpdateNote}
+        onRemoveNote={onRemoveNote}
+      />
     </section>
   )
 }

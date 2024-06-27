@@ -3,7 +3,7 @@ import { utilService } from '../../../services/util.service.js'
 
 const { useEffect, useState } = React
 
-export function NoteAdd() {
+export function NoteAdd({ loadNotes }) {
   const cmps = ['NoteTxt', 'NoteImg', 'NoteTodos', 'NoteVideo']
   const [newNote, setNewNote] = useState(noteService.getEmptyNote())
   const [cmpInput, setCmpInput] = useState('NoteTxt')
@@ -31,10 +31,16 @@ export function NoteAdd() {
   }
 
   function onSaveNote(ev) {
+    console.log(ev.target)
     ev.preventDefault()
-    noteService.save(newNote)
+    console.log('newNote', newNote)
+    if (!newNote.title && !newNote.txt && !newNote.url && !newNote.src) return
+    noteService.save(newNote).then((savedNote) => {
+      console.log('savedNote', savedNote)
+      loadNotes()
+      setNewNote(noteService.getEmptyNote())
+    })
   }
-
   return (
     <section className="add-note-main">
       <form className="note-form" onSubmit={onSaveNote}>
