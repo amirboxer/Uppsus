@@ -21,6 +21,9 @@ export function NotePreview({ notes, onRemoveNote }) {
             <button className="note-btn">
               <span className="material-symbols-outlined">palette</span>
             </button>
+            <button className="note-btn">
+              <span className="material-symbols-outlined">edit</span>{' '}
+            </button>
           </div>
         </div>
       ))}

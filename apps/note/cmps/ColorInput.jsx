@@ -1,6 +1,6 @@
 import { noteService } from '../services/note.service.js'
 
-export function ColorInput({ note, loadNotes }) {
+export function ColorInput({ note, onUpdateNote, loadNotes }) {
   const colors = [
     '#B4FF9F',
     '#F9FFA4',
