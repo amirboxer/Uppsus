@@ -21,17 +21,19 @@ const USER_IDENTIFIERS = {
     fullname: 'Mahatma Appsus'
 }
 
+let gFilterBy = {subject : ''}
+
 // +-+-+-+-+-+-+-+-+-+-+-+- data queries +-+-+-+-+-+-+-+-+-+-+-+-//
 function query() {
     return storageService.query(MAILS_LCS_KEY)
-    // .then(mails => {
-    //     if (gFilterBy.title) {
-    //         const regex = new RegExp(gFilterBy.title, 'i')
-    //         mails = mails.filter(mail => regex.test(mail.title))
-    //     }
-
-    //     return mails
-    // })
+    .then(mails => {
+        if (gFilterBy.subject) {
+            console.log('gFilterBy', gFilterBy)
+            const regex = new RegExp(gFilterBy.subject, 'i')
+            mails = mails.filter(mail => regex.test(mail.subject))
+        }
+        return mails
+    })
 }
 
 function get(BookId) {
@@ -55,9 +57,8 @@ function getFilterBy() {   // copoy of filters
 }
 
 function setFilterBy(filterBy = {}) {
-    // if (filterBy.title !== undefined) gFilterBy.title = filterBy.title
+    if (filterBy.subject !== undefined) gFilterBy.subject = filterBy.subject
 
-    // if (filterBy.maxPrice !== undefined) gFilterBy.maxPrice = filterBy.maxPrice
     return gFilterBy
 }
 
@@ -107,11 +108,10 @@ function _generateUserRandomEmail(id, userEmails = false) {
         isRead: userEmails ? true : Math.random() > 0.4 ? true : false,
         sentAt,
         removedAt: Math.random() > 0.7 ? null : utilService.getRandomIntInclusive(sentAt, today),
-        from: userEmails ? USER_IDENTIFIERS.email : _generateRandomEmailAddress(),
+        from: userEmails ? USER_IDENTIFIERS.email : generateRandomName(),
         to: _generateRandomEmailAddress(),
     }
 }
-
 
 function _generateRandomEmailSubject() {
     const adjectives = ['Important', 'Urgent', 'New', 'Updated', 'Final', 'Weekly', 'Monthly'];
@@ -128,20 +128,57 @@ function _generateRandomEmailSubject() {
     return subject;
 }
 
-function _generateRandomEmailBodyd() {
-    const subjects = ['The project', 'Your request', 'Our meeting', 'The document', 'Your feedback', 'The team', 'Your appointment'];
-    const verbs = ['has been approved', 'was discussed', 'needs attention', 'has been completed', 'is pending', 'requires review', 'has been rescheduled', 'was canceled', 'is happaing', 'will be ok', 'awaring approval'];
-    const objects = ['as soon as possible', 'at your earliest convenience', 'by the end of the day', 'before the deadline', 'for the next meeting', 'with the client', 'for further discussion'];
-
-    // Helper function to get a random element from an array
-    function getRandomElement(array) {
-        return array[Math.floor(Math.random() * array.length)];
+function generateRandomName() {
+    function getRandomElement(arr) {
+        return arr[Math.floor(Math.random() * arr.length)];
     }
 
-    // Generate a random sentence
-    const sentence = `${getRandomElement(subjects)} ${getRandomElement(verbs)} ${getRandomElement(objects)}.`;
+    const firstNames = [
+        "John", "Jane", "Alex", "Emily", "Chris", "Katie", "Michael", "Sarah", "David", "Laura",
+        "Robert", "Linda", "James", "Karen", "Charles", "Barbara", "Joseph", "Jennifer", "Thomas", "Jessica"
+    ];
 
-    return sentence;
+    const lastNames = [
+        "Smith", "Johnson", "Williams", "Brown", "Jones", "Garcia", "Miller", "Davis", "Rodriguez", "Martinez",
+        "Hernandez", "Lopez", "Gonzalez", "Wilson", "Anderson", "Thomas", "Taylor", "Moore", "Jackson", "Martin"
+    ];
+
+    const prefixes = [
+        "Tech", "Global", "Innovative", "Advanced", "NextGen", "Creative", "Dynamic", "Future", "Vision", "Pioneer"
+    ];
+
+    const suffixes = [
+        "Solutions", "Enterprises", "Systems", "Technologies", "Consulting", "Holdings", "Networks", "Ventures", "Corp", "LLC"
+    ];
+
+    const adjectives = [
+        "Cool", "Awesome", "Great", "Amazing", "Fantastic", "Incredible", "Marvelous", "Wonderful", "Superb", "Fabulous"
+    ];
+
+    const nouns = [
+        "Tech", "Gadgets", "Tools", "Gear", "Devices", "Widgets", "Apps", "Software", "Hardware", "Gizmos"
+    ];
+
+    // Randomly choose between generating a full name, organization name, or website name
+    const choice = Math.floor(Math.random() * 3);
+
+    switch (choice) {
+        case 0:
+            // Generate full name
+            const firstName = getRandomElement(firstNames);
+            const lastName = getRandomElement(lastNames);
+            return `${firstName} ${lastName}`;
+        case 1:
+            // Generate organization name
+            const prefix = getRandomElement(prefixes);
+            const suffix = getRandomElement(suffixes);
+            return `${prefix} ${suffix}`;
+        case 2:
+            // Generate website name
+            const adjective = getRandomElement(adjectives);
+            const noun = getRandomElement(nouns);
+            return `${adjective}${noun}.com`.toLowerCase();
+    }
 }
 
 function _generateRandomEmailBody() {
@@ -217,13 +254,6 @@ function _generateRandomEmailBody() {
 
     return emailBody;
 }
-
-
-
-
-
-
-
 
 function _generateRandomEmailAddress() {
     const domains = ['example.com', 'test.com', 'demo.com', 'email.com', 'mail.com'];
