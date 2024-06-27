@@ -43,7 +43,7 @@ function save(note) {
   } else {
     console.log('noteBeforeSave', note)
     note = _createNote(note.title, note.txt, note.url, note.src)
-    console.log('note:',note);
+    console.log('note:', note)
     return storageService.post(NOTE_KEY, note)
   }
 }
@@ -75,8 +75,8 @@ function _createNote(title, txt, url, src) {
     info: {
       title: title || utilService.makeLorem(1),
       txt: txt || utilService.makeLorem(5),
-      url: url,
-      src: src,
+      url: url || '',
+      src: src || '',
     },
   }
 
