@@ -1,16 +1,23 @@
+.note-list {
+  column-count: 1;
+  column-gap: 1em;
+  max-width: 960px; 
+  margin: 0 auto; 
+  padding: 1em;
+  box-sizing: border-box;
+}
+
 .note-list > * {
   break-inside: avoid;
 }
 
-.note-list {
-  column-count: 3;
-}
-
 .note {
-  max-width: 280px;
-  margin: 1em;
+  width: 100%;
+  max-width: 300px;
+  margin: 0 0 1em; 
   padding: 1em;
   border-radius: 6px;
+  box-sizing: border-box;
 }
 
 .note-title {
@@ -27,6 +34,7 @@
   opacity: 0;
   transition: 200ms ease;
 }
+
 .note:hover .note-btns {
   opacity: 1;
 }
@@ -39,4 +47,16 @@
   cursor: pointer;
   background: none;
   border: none;
+}
+
+@media (min-width: 768px) {
+  .note-list {
+    column-count: 2;
+  }
+}
+
+@media (min-width: 1024px) {
+  .note-list {
+    column-count: 3;
+  }
 }
