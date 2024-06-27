@@ -102,6 +102,7 @@ function _generateUserRandomEmail(id, userEmails = false) {
     const sentAt = utilService.getRandomIntInclusive(today - twoYears, today)
     return {
         id,
+        starred: false,
         createdAt: Math.random() > utilService.getRandomIntInclusive(sentAt - onWeek, sentAt),
         subject: _generateRandomEmailSubject(),
         body: _generateRandomEmailBody(),

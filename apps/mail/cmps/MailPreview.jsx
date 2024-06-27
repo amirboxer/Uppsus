@@ -1,17 +1,45 @@
 // services
 import { utilService } from "../../../services/util.service.js"
+import { mailService } from "../services/mail.service.js"
 
 // jsx components
 import { OperationsBar } from "./OperationBar.jsx"
 
 // react
 const { Link } = ReactRouterDOM
+const { useState } = React
 
 
 
 export function MailPreview({ mail, deleteMail, toggleIsRead }) {
+
+    const [starred, setStarred] = useState(mail.starred)
+    const [selected, setSelected] = useState(false)
+
+    function toggleStarred(mail) {
+        setStarred(prevStarred => !prevStarred)
+        mail.starred = !mail.starred
+        mailService.save(mail)
+            .catch(() => {
+                mail.starred = !mail.starred
+                setStarred(prevStarred => !prevStarred)
+                //TODO Message
+            })
+    }
+
+    function toggleSelected() {
+        setSelected(prevSelected => !prevSelected)
+    }
+
     return (
-        <article className={`list-row ${mail.isRead ? '' : 'unread'}`}>
+        <article className={`list-row ${mail.isRead ? '' : 'unread'} ${selected ? 'selected' : ''}`}>
+            {/* selected */}
+
+            <button className={`mail-preview mail-operation material-icons ${starred ? 'starred' : ''}`} onClick={() => toggleStarred(mail)}>{starred ? 'star' : 'star_outline'}</button>
+
+            {/* starred */}                                                                      
+            <button className="mail-preview mail-operation material-icons" onClick={toggleSelected}>{selected ? 'check_box_outline_blank' : <span class="material-icons-outlined">check_box</span>}</button>
+
 
             {/* mail origin */}
             <Link to={`/mail/inbox/${mail.id}`} className="list-link">
