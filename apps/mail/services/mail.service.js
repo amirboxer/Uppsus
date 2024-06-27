@@ -129,9 +129,9 @@ function _generateRandomEmailSubject() {
 }
 
 
-function _generateRandomEmailBody() {
+function _generateRandomEmailBodyd() {
     const subjects = ['The project', 'Your request', 'Our meeting', 'The document', 'Your feedback', 'The team', 'Your appointment'];
-    const verbs = ['has been approved', 'was discussed', 'needs attention', 'has been completed', 'is pending', 'requires review', 'has been rescheduled'];
+    const verbs = ['has been approved', 'was discussed', 'needs attention', 'has been completed', 'is pending', 'requires review', 'has been rescheduled', 'was canceled', 'is happaing', 'will be ok', 'awaring approval'];
     const objects = ['as soon as possible', 'at your earliest convenience', 'by the end of the day', 'before the deadline', 'for the next meeting', 'with the client', 'for further discussion'];
 
     // Helper function to get a random element from an array
@@ -144,6 +144,96 @@ function _generateRandomEmailBody() {
 
     return sentence;
 }
+
+
+
+
+
+
+
+
+
+
+function _generateRandomEmailBody() {
+    const introPhrases = [
+        "I hope this email finds you well.",
+        "Greetings!",
+        "Hello!",
+        "Hi there,",
+        "Dear team,",
+        "Hi [Recipient's Name],",
+        "Good day!"
+    ];
+
+    const bodySentences = [
+        "I wanted to remind you about the meeting tomorrow.",
+        "Please review the attached document.",
+        "We have an important update regarding the project.",
+        "Your feedback is highly appreciated.",
+        "Looking forward to your response.",
+        "Don't forget about our upcoming event.",
+        "Thank you for your time and consideration.",
+        "Please let me know if you have any questions.",
+        "The deadline is approaching quickly.",
+        "We appreciate your feedback.",
+        "Here's the information you requested.",
+        "Best wishes for a great day.",
+        "Can you please provide an update?",
+        "Your attention to this matter is required.",
+        "Please make sure to complete the assigned tasks.",
+        "We are pleased with the progress so far.",
+        "I have a few questions regarding the project.",
+        "Can we schedule a meeting to discuss further?",
+        "I have attached the latest report for your review.",
+        "Please find the details in the attached document.",
+        "I would like to bring to your attention the following points.",
+        "Thank you for your cooperation.",
+        "We need to finalize the details by the end of the week.",
+        "Your prompt response is greatly appreciated.",
+        "I hope you are doing well.",
+        "Please let me know your thoughts on this matter."
+    ];
+
+    const closingPhrases = [
+        "Thank you!",
+        "Best regards,",
+        "Sincerely,",
+        "Kind regards,",
+        "Best wishes,",
+        "Warm regards,",
+        "Yours truly,"
+    ];
+
+    function getRandomElement(arr) {
+        return arr[Math.floor(Math.random() * arr.length)];
+    }
+
+    // Generate random introductory phrase
+    const randomIntro = getRandomElement(introPhrases);
+
+    // Generate a longer random body with more sentences
+    const randomBodySentences = [];
+    const sentenceCount = Math.floor(Math.random() * 5) + 5; // Between 5 and 10 sentences
+    for (let i = 0; i < sentenceCount; i++) {
+        randomBodySentences.push(getRandomElement(bodySentences));
+    }
+    const randomBody = randomBodySentences.join(" ");
+
+    // Generate random closing phrase
+    const randomClosing = getRandomElement(closingPhrases);
+
+    // Combine all parts into a single email body
+    const emailBody = `${randomIntro}\n\n${randomBody}\n\n${randomClosing}\n[Your Name]`;
+
+    return emailBody;
+}
+
+
+
+
+
+
+
 
 function _generateRandomEmailAddress() {
     const domains = ['example.com', 'test.com', 'demo.com', 'email.com', 'mail.com'];
