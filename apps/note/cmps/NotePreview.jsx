@@ -30,12 +30,12 @@ export function NotePreview({ notes, onRemoveNote, onUpdateNote }) {
               <input
                 type="text"
                 name="title"
-                value={editNoteData.title}
+                value={editNoteData.txt}
                 onChange={(e) => {
                   console.log('Title change:', e.target.value)
                   setEditNoteData((prevData) => ({
                     ...prevData,
-                    title: e.target.value,
+                    txt: e.target.value,
                   }))
                 }}
               />

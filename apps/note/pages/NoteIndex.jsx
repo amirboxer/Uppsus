@@ -49,10 +49,15 @@ export function NoteIndex() {
     noteService
       .save(noteToUpdate)
       .then((savedNote) => {
-        console.log('updated')
+        setNotes((prevNotes) =>
+          prevNotes.map((note) => (note.id === savedNote.id ? savedNote : note))
+        )
+        showSuccessMsg('Note updated successfully!')
+        loadNotes() // Calling loadNotes to refresh the notes list
       })
       .catch((err) => {
-        console.error('err', err)
+        console.error('Error updating note:', err)
+        showErrorMsg('Having problems updating note!')
       })
   }
 
