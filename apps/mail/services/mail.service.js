@@ -12,6 +12,7 @@ export const mailService = {
     setFilterBy,
     getNextMailId,
     generateDemoMails,
+    createSentMail,
 }
 
 // +-+-+-+-+-+-+-+-+-+-+-+-  globals  +-+-+-+-+-+-+-+-+-+-+-+- // 
@@ -21,34 +22,34 @@ const USER_IDENTIFIERS = {
     fullname: 'Mahatma Appsus'
 }
 
-let gFilterBy = {subject : ''}
+let gFilterBy = { subject: '' }
 
 // +-+-+-+-+-+-+-+-+-+-+-+- data queries +-+-+-+-+-+-+-+-+-+-+-+-//
 function query() {
     return storageService.query(MAILS_LCS_KEY)
-    .then(mails => {
-        if (gFilterBy.subject) {
-            console.log('gFilterBy', gFilterBy)
-            const regex = new RegExp(gFilterBy.subject, 'i')
-            mails = mails.filter(mail => regex.test(mail.subject))
-        }
-        return mails
-    })
+        .then(mails => {
+            if (gFilterBy.subject) {
+                console.log('gFilterBy', gFilterBy)
+                const regex = new RegExp(gFilterBy.subject, 'i')
+                mails = mails.filter(mail => regex.test(mail.subject))
+            }
+            return mails
+        })
 }
 
-function get(BookId) {
-    return storageService.get(MAILS_LCS_KEY, BookId)
+function get(mailId) {
+    return storageService.get(MAILS_LCS_KEY, mailId)
 }
 
-function remove(bookId) {
-    return storageService.remove(MAILS_LCS_KEY, bookId)
+function remove(mailId) {
+    return storageService.remove(MAILS_LCS_KEY, mailId)
 }
 
-function save(book) {
-    if (book.id) {
-        return storageService.put(MAILS_LCS_KEY, book)  // AKA update element
+function save(mail) {
+    if (mail.id) {
+        return storageService.put(MAILS_LCS_KEY, mail)  // AKA update element
     } else {
-        return storageService.post(MAILS_LCS_KEY, book) // AKA add new element
+        return storageService.post(MAILS_LCS_KEY, mail) // AKA add new element
     }
 }
 
@@ -65,9 +66,22 @@ function setFilterBy(filterBy = {}) {
 function getNextMailId(mailId) {
     return storageService.query(MAILS_LCS_KEY)
         .then(mails => {
-            let nextBookIdx = mails.findIndex(car => car.id === mailId) + 1
-            return mails[nextBookIdx % mails.length].id
+            let nextMailIdx = mails.findIndex(car => car.id === mailId) + 1
+            return mails[nextMailIdx % mails.length].id
         })
+}
+
+function createSentMail({ to, subject, body, createdAt }) {
+    return {
+        starred: false,
+        createdAt,
+        subject,
+        body,
+        isRead: true,
+        sentAt: Date.now(),
+        removedAt: null,
+        from: USER_IDENTIFIERS.email
+    }
 }
 
 // +-+-+-+-+-+-+-+-+-+-+-+- demo data +-+-+-+-+-+-+-+-+-+-+-+-//

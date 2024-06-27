@@ -6,7 +6,7 @@ mailService.generateDemoMails()
 import { MailList } from '../cmps/MailList.jsx'
 import { MailNavigation } from '../cmps/MailFolderList.jsx'
 import { MailSearch } from '../cmps/MailSearch.jsx'
-import {MailCompose} from '../cmp/MailCompose.jsx'
+import { MailCompose } from '../cmp/MailCompose.jsx'
 
 // react
 const { useEffect, useState } = React
@@ -18,7 +18,6 @@ export function MailIndex() {
 
     // get mails
     useEffect(() => {
-        //console.log(searchPattern)
         mailService.setFilterBy(searchPattern)  // in service not async
         mailService.query()
             .then(setMails)
@@ -26,7 +25,6 @@ export function MailIndex() {
 
     // count unraed
     useEffect(() => {
-        //console.log(mails.length) //TODO delete
         setUnreadCount(countUnread())
     }, [mails])
 
@@ -38,13 +36,15 @@ export function MailIndex() {
     }
 
     // delete mail
+
+    //TODO remove instaed of delete
     function deleteMail(mailId) {
         mailService.remove(mailId)
             .then(setMails(prevMails => [...prevMails.filter(mail => mail.id !== mailId)]))
-        // TODO show massages
+            .catch(() => console.log('cannot remove'))
     }
 
-    // delete mail
+    // read/unread mail
     function toggleIsRead(mail) {
         mail.isRead = !mail.isRead
         mailService.save(mail)
@@ -55,7 +55,13 @@ export function MailIndex() {
             .catch(() => {
                 mail.isRead = !mail.isRead
             })
-        // TODO show massages
+    }
+
+    // add mail
+    function sendMail({to, subject, body, createdAt}) {
+        const mail = mailService.createSentMail({to, subject, body, createdAt})
+        mailService.save(mail)
+        .then(sentMail => setMails(prevMail => [sentMail,...prevMail]))
     }
 
     return (
@@ -67,20 +73,20 @@ export function MailIndex() {
 
             {/* side bar */}
             <div className='side-bar'>
-                
+                {/* new email */}
+                <MailCompose sendMail={sendMail}/>
 
+                {/* sidebars folders */}
                 <MailNavigation
                     unreadCount={unreadCount} />
             </div>
-
             {/* preview list */}
             <div className="previews-conrainer">
-                <MailList 
+                <MailList
                     mails={mails}
                     deleteMail={deleteMail}
                     toggleIsRead={toggleIsRead} />
             </div>
-            <MailCompose />
         </section>
     )
 }

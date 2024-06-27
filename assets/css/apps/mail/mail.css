@@ -53,6 +53,9 @@ button.mail-preview:first-child {
 
 .unread {
     font-family: Roboto-Bold;
+}
+
+.list-row.read {
     background-color: #f2f6fc;
 }
 

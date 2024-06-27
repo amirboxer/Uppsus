@@ -32,7 +32,7 @@ export function MailPreview({ mail, deleteMail, toggleIsRead }) {
     }
 
     return (
-        <article className={`list-row ${mail.isRead ? '' : 'unread'} ${selected ? 'selected' : ''}`}>
+        <article className={`list-row ${mail.isRead ? 'read' : 'unread'} ${selected ? 'selected' : ''}`}>
             {/* starred */}                                                                      
             <button className="mail-preview mail-operation material-icons" onClick={toggleSelected}>{selected ? 'check' : 'check_box_outline_blank'}</button>
             
