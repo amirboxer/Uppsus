@@ -73,7 +73,7 @@ function _createNote(title, txt, url, src) {
       backgroundColor: utilService.getRandomColor(),
     },
     info: {
-      title: title || utilService.makeLorem(1),
+      title: title || 'Note',
       txt: txt || utilService.makeLorem(5),
       url: url || '',
       src: src || '',
