@@ -44,6 +44,7 @@
 }
 
 .note-btn {
+  margin-inline-start: 0.5em;
   cursor: pointer;
   background: none;
   border: none;

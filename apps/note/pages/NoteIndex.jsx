@@ -1,5 +1,6 @@
 import { NotePreview } from '../cmps/NotePreview.jsx'
 import { NoteAdd } from '../cmps/NoteAdd.jsx'
+import { ColorInput } from '../cmps/ColorInput.jsx'
 import { utilService } from '../../../services/util.service.js'
 import { storageService } from '../../../services/async-storage.service.js'
 import { noteService } from '../services/note.service.js'
@@ -32,6 +33,11 @@ export function NoteIndex() {
       })
   }
 
+  function onColorChange(noteId) {
+    console.log('colorChanged: ', noteId)
+    loadNotes()
+  }
+
   function onRemoveNote(noteId) {
     noteService
       .remove(noteId)
@@ -53,7 +59,7 @@ export function NoteIndex() {
           prevNotes.map((note) => (note.id === savedNote.id ? savedNote : note))
         )
         showSuccessMsg('Note updated successfully!')
-        loadNotes() // Calling loadNotes to refresh the notes list
+        loadNotes()
       })
       .catch((err) => {
         console.error('Error updating note:', err)
@@ -69,7 +75,9 @@ export function NoteIndex() {
         notes={notes}
         onUpdateNote={onUpdateNote}
         onRemoveNote={onRemoveNote}
+        onColorChange={onColorChange}
       />
+
     </section>
   )
 }

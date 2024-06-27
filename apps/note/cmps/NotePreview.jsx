@@ -1,8 +1,16 @@
 const { useState } = React
 
-export function NotePreview({ notes, onRemoveNote, onUpdateNote }) {
+import { ColorInput } from "./ColorInput.jsx"
+
+export function NotePreview({
+  notes,
+  onRemoveNote,
+  onUpdateNote,
+  onColorChange,
+}) {
   const [editedNoteId, setEditedNoteId] = useState(null)
   const [editNoteData, setEditNoteData] = useState({ title: '', txt: '' })
+  const [showColorPickerForNoteId, setShowColorPickerForNoteId] = useState(null)
 
   function handleEditClick(note) {
     console.log('Editing note:', note)
@@ -17,6 +25,12 @@ export function NotePreview({ notes, onRemoveNote, onUpdateNote }) {
     setEditedNoteId(null)
   }
 
+  function handleColorClick(noteId) {
+    setShowColorPickerForNoteId(
+      noteId === showColorPickerForNoteId ? null : noteId
+    )
+  }
+
   return (
     <section className="note-list">
       {notes.map((note) => {
@@ -28,7 +42,7 @@ export function NotePreview({ notes, onRemoveNote, onUpdateNote }) {
               className="note"
             >
               <input
-              className="note-edit-input"
+                className="note-edit-input"
                 type="text"
                 name="title"
                 value={editNoteData.txt}
@@ -54,12 +68,13 @@ export function NotePreview({ notes, onRemoveNote, onUpdateNote }) {
               key={note.id}
               style={{ backgroundColor: note.style.backgroundColor }}
               className="note"
-              onClick={() => handleEditClick(note)}
             >
               <h1 className="note-title">{note.info.title}</h1>
               {(note.type === 'NoteImg' || note.type === 'NoteTxt') &&
                 note.info.url && <img src={note.info.url} alt="Note Image" />}
-              <p className="note-txt">{note.info.txt}</p>
+              <p onClick={() => handleEditClick(note)} className="note-txt">
+                {note.info.txt}
+              </p>
               <div className="note-btns">
                 <button
                   onClick={() => onRemoveNote(note.id)}
@@ -67,7 +82,22 @@ export function NotePreview({ notes, onRemoveNote, onUpdateNote }) {
                 >
                   <span className="material-symbols-outlined">delete</span>
                 </button>
+
+                <button
+                  className="note-btn"
+                  onClick={() => handleColorClick(note.id)}
+                >
+                  <span className="material-symbols-outlined">palette</span>
+                </button>
               </div>
+
+              {showColorPickerForNoteId === note.id && (
+                <ColorInput
+                  note={note}
+                  onUpdateNote={onUpdateNote}
+                  loadNotes={onColorChange}
+                />
+              )}
             </div>
           )
         }
