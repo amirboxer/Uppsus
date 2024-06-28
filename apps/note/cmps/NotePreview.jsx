@@ -12,7 +12,6 @@ export function NotePreview({
   const [editedNoteId, setEditedNoteId] = useState(null)
   const [editNoteData, setEditNoteData] = useState({ title: '', txt: '' })
   const [showColorPickerForNoteId, setShowColorPickerForNoteId] = useState(null)
-  const [duplicate, setDuplicate] = useState(null)
 
   function handleEditClick(note) {
     console.log('Editing note:', note)
@@ -33,6 +32,12 @@ export function NotePreview({
     )
   }
 
+  function handlePinClick(note) {
+    const updatedNote = { ...note, isPinned: !note.isPinned }
+    onUpdateNote(updatedNote)
+    console.log('Pinned note:', updatedNote)
+  }
+
   function handleDuplicateClick(note) {
     const duplicatedNote = {
       ...note,
@@ -44,9 +49,11 @@ export function NotePreview({
     onDuplicateNote(duplicatedNote)
   }
 
+  const sortedNotes = [...notes].sort((a, b) => b.isPinned - a.isPinned)
+
   return (
     <section className="note-list">
-      {notes.map((note) => {
+      {sortedNotes.map((note) => {
         if (editedNoteId === note.id) {
           return (
             <div
@@ -88,6 +95,28 @@ export function NotePreview({
               <p onClick={() => handleEditClick(note)} className="note-txt">
                 {note.info.txt}
               </p>
+              {note.type === 'NoteTodos' && (
+                <ul>
+                  {note.info.todos.map((todo, idx) => (
+                    <li key={idx}>
+                      <input
+                        type="checkbox"
+                        checked={todo.done}
+                        onChange={(e) => {
+                          const updatedTodos = [...note.info.todos]
+                          updatedTodos[idx].done = e.target.checked
+                          const updatedNote = {
+                            ...note,
+                            info: { ...note.info, todos: updatedTodos },
+                          }
+                          onUpdateNote(updatedNote)
+                        }}
+                      />
+                      <span>{todo.txt}</span>
+                    </li>
+                  ))}
+                </ul>
+              )}
               <div className="note-btns">
                 <button
                   onClick={() => onRemoveNote(note.id)}
@@ -108,6 +137,15 @@ export function NotePreview({
                 >
                   <span className="material-symbols-outlined">
                     control_point_duplicate
+                  </span>
+                </button>
+                <button
+                  className="note-btn"
+                  onClick={() => handlePinClick(note)}
+                  style={{ color: note.isPinned ? 'yellow' : 'inherit' }}
+                >
+                  <span className="material-symbols-outlined">
+                    {note.isPinned ? 'push_pin' : 'keep'}
                   </span>
                 </button>
               </div>

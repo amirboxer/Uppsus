@@ -37,46 +37,45 @@ function remove(noteId) {
   return storageService.remove(NOTE_KEY, noteId)
 }
 
+function save(note) {
+  if (note.id) {
+    return storageService.put(NOTE_KEY, note)
+  } else {
+    console.log('noteBeforeSave', note)
 
-      function save(note) {
-        if (note.id) {
-          return storageService.put(NOTE_KEY, note);
-        } else {
-          console.log('noteBeforeSave', note);
-      
-          const title = note.info ? note.info.title : note.title;
-          const txt = note.info ? note.info.txt : note.txt;
-          const url = note.info ? note.info.url : note.url;
-          const src = note.info ? note.info.src : note.src;
-          const backgroundColor = note.style ? note.style.backgroundColor : getKeepRandomColor();
-      
-          note = _createNote(title, txt, url, src, backgroundColor);
-          console.log('note:', note);
-          return storageService.post(NOTE_KEY, note);
-        }
-      }
-      
-      function _createNote(title, txt, url, src, backgroundColor) {
-        const newNote = {
-          id: utilService.makeId(),
-          createdAt: Date.now(),
-          type: 'NoteTxt',
-          isPinned: false,
-          style: {
-            backgroundColor: backgroundColor || getKeepRandomColor(),
-          },
-          info: {
-            title: title || 'Note',
-            txt: txt || '',
-            url: url || '',
-            src: src || '',
-          },
-        };
-      
-        return newNote;
-      }
-      
-      
+    const title = note.info ? note.info.title : note.title
+    const txt = note.info ? note.info.txt : note.txt
+    const url = note.info ? note.info.url : note.url
+    const src = note.info ? note.info.src : note.src
+    const backgroundColor = note.style
+      ? note.style.backgroundColor
+      : getKeepRandomColor()
+
+    note = _createNote(title, txt, url, src, backgroundColor)
+    console.log('note:', note)
+    return storageService.post(NOTE_KEY, note)
+  }
+}
+
+function _createNote(title, txt, url, src, backgroundColor) {
+  const newNote = {
+    id: utilService.makeId(),
+    createdAt: Date.now(),
+    type: 'NoteTxt',
+    isPinned: false,
+    style: {
+      backgroundColor: backgroundColor || getKeepRandomColor(),
+    },
+    info: {
+      title: title || 'Note',
+      txt: txt || '',
+      url: url || '',
+      src: src || '',
+    },
+  }
+
+  return newNote
+}
 
 function getEmptyNote() {
   return { id: '', title: '', txt: '', url: '', src: '' }
@@ -86,13 +85,12 @@ function _createNotes() {
   let notes = utilService.loadFromStorage(NOTE_KEY)
   if (!notes || !notes.length) {
     notes = []
-    for (let i = 0; i < 5; i++) {
+    for (let i = 0; i < 15; i++) {
       notes.push(_createNote())
     }
     utilService.saveToStorage(NOTE_KEY, notes)
   }
 }
-
 
 function getDefaultFilter() {
   return { txt: '' }
