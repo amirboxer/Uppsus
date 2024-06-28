@@ -1,10 +1,19 @@
 .note-list {
   column-count: 1;
   column-gap: 1em;
-  max-width: 960px; 
-  margin: 0 auto; 
+  max-width: 960px;
+  margin: 0 auto;
   padding: 1em;
   box-sizing: border-box;
+}
+
+.pinned-notes {
+  border: 1px solid lightgray;
+}
+
+.note-pin-title {
+  position: absolute;
+  top: 180px;
 }
 
 .note-list > * {
@@ -14,7 +23,7 @@
 .note {
   width: 100%;
   max-width: 300px;
-  margin: 0 0 1em; 
+  margin: 0 0 1em;
   padding: 1em;
   border-radius: 6px;
   box-sizing: border-box;
