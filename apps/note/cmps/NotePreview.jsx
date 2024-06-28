@@ -1,5 +1,5 @@
 const { useState } = React
-import { NoteButtons } from './NoteButtons.jsx'
+
 import { ColorInput } from './ColorInput.jsx'
 
 export function NotePreview({
