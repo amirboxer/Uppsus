@@ -1,33 +1,29 @@
 /* Setup */
 
-@import './setup/variables.css';
+@import url(./setup/fonts.css);
 @import url(./setup/fonts.css);
 /* @import './setup/fonts.css'; */
 
 /* Basics */
-
-@import './basics/base.css';
-@import './basics/helpers.css';
+@import url(./basics/base.css);
+@import url(./basics/helpers.css);
 /* @import './basics/layout.css'; */
 
 /* Pages */
-@import url(./pages/home.css);
 @import url(./pages/about.css);
+@import url(./pages/home.css);
 
 /* @import './apps/note/pages/NoteIndex.css'; */
-@import './apps/note/cmps/NotePreview.css';
-@import './apps/note/cmps/NoteAdd.css';
-@import './apps/note/cmps/NoteEdit.css';
-@import './apps/note/cmps/color-input.css';
-
+@import url(./apps/note/cmps/NotePreview.css);
+@import url(./apps/note/cmps/NoteAdd.css);
+@import url(./apps/note/cmps/NoteEdit.css);
+@import url(./apps/note/cmps/color-input.css);
 /* @import './apps/mail/pages/MailIndex.css'; */
 
 
-/******** Cmps ******** /
-
-/*** note ***/
-@import './cmps/UserMsg.css';
-@import './cmps/AppHeader.css';
+/******** Cmps ********/
+@import url(./cmps/UserMsg.css);
+@import url(./cmps/AppHeader.css);
 
 
 
