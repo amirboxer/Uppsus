@@ -1,6 +1,7 @@
 const { useState } = React
 
 import { ColorInput } from './ColorInput.jsx'
+import { TodoNote } from './TodoNote.jsx'
 
 export function NotePreview({
   notes,
@@ -14,13 +15,11 @@ export function NotePreview({
   const [showColorPickerForNoteId, setShowColorPickerForNoteId] = useState(null)
 
   function handleEditClick(note) {
-    console.log('Editing note:', note)
     setEditedNoteId(note.id)
     setEditNoteData({ title: note.info.title, txt: note.info.txt })
   }
 
   function handleSaveClick(note) {
-    console.log('Saving note:', note)
     const updatedNote = { ...note, info: { ...note.info, ...editNoteData } }
     onUpdateNote(updatedNote)
     setEditedNoteId(null)
@@ -35,7 +34,6 @@ export function NotePreview({
   function handlePinClick(note) {
     const updatedNote = { ...note, isPinned: !note.isPinned }
     onUpdateNote(updatedNote)
-    console.log('Pinned note:', updatedNote)
   }
 
   function handleDuplicateClick(note) {
@@ -70,26 +68,10 @@ export function NotePreview({
                 {note.info.txt}
               </p>
               {note.type === 'NoteTodos' && (
-                <ul>
-                  {note.info.todos.map((todo, idx) => (
-                    <li key={idx}>
-                      <input
-                        type="checkbox"
-                        checked={todo.done}
-                        onChange={(e) => {
-                          const updatedTodos = [...note.info.todos]
-                          updatedTodos[idx].done = e.target.checked
-                          const updatedNote = {
-                            ...note,
-                            info: { ...note.info, todos: updatedTodos },
-                          }
-                          onUpdateNote(updatedNote)
-                        }}
-                      />
-                      <span>{todo.txt}</span>
-                    </li>
-                  ))}
-                </ul>
+                <TodoNote
+                  title={note.info.todos.map((todo) => todo.txt).join(', ')}
+                  handleInputChange={(e) => handleEditClick(note)}
+                />
               )}
               <div className="note-btns">
                 <button
@@ -150,7 +132,6 @@ export function NotePreview({
                   name="title"
                   value={editNoteData.title}
                   onChange={(e) => {
-                    console.log('Title change:', e.target.value)
                     setEditNoteData((prevData) => ({
                       ...prevData,
                       title: e.target.value,
@@ -163,7 +144,6 @@ export function NotePreview({
                   name="txt"
                   value={editNoteData.txt}
                   onChange={(e) => {
-                    console.log('Text change:', e.target.value)
                     setEditNoteData((prevData) => ({
                       ...prevData,
                       txt: e.target.value,
@@ -193,26 +173,10 @@ export function NotePreview({
                   {note.info.txt}
                 </p>
                 {note.type === 'NoteTodos' && (
-                  <ul>
-                    {note.info.todos.map((todo, idx) => (
-                      <li key={idx}>
-                        <input
-                          type="checkbox"
-                          checked={todo.done}
-                          onChange={(e) => {
-                            const updatedTodos = [...note.info.todos]
-                            updatedTodos[idx].done = e.target.checked
-                            const updatedNote = {
-                              ...note,
-                              info: { ...note.info, todos: updatedTodos },
-                            }
-                            onUpdateNote(updatedNote)
-                          }}
-                        />
-                        <span>{todo.txt}</span>
-                      </li>
-                    ))}
-                  </ul>
+                  <TodoNote
+                    title={note.info.todos.map((todo) => todo.txt).join(', ')}
+                    handleInputChange={(e) => handleEditClick(note)}
+                  />
                 )}
                 <div className="note-btns">
                   <button

@@ -27,7 +27,6 @@ export function ColorInput({ note, onUpdateNote, loadNotes }) {
     const updatedNote = { ...note, style: updatedStyle }
 
     noteService.save(updatedNote).then((savedNote) => {
-      console.log('savedNote', savedNote)
       onUpdateNote(savedNote)
       loadNotes()
     })

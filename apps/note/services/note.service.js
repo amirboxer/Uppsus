@@ -19,7 +19,6 @@ export const noteService = {
 function query(filterBy = getDefaultFilter()) {
   return storageService.query(NOTE_KEY).then((notes) => {
     if (filterBy.txt) {
-      console.log('hey from query filterbytxt::')
       const regex = new RegExp(filterBy.txt, 'i')
       notes = notes.filter((note) =>
         regex.test(note.info.txt || note.info.title)
@@ -41,36 +40,46 @@ function save(note) {
   if (note.id) {
     return storageService.put(NOTE_KEY, note)
   } else {
-    console.log('noteBeforeSave', note)
 
     const title = note.info ? note.info.title : note.title
     const txt = note.info ? note.info.txt : note.txt
     const url = note.info ? note.info.url : note.url
     const src = note.info ? note.info.src : note.src
+    const todos = note.info ? note.info.todos : []
     const backgroundColor = note.style
       ? note.style.backgroundColor
       : getKeepRandomColor()
 
-    note = _createNote(title, txt, url, src, backgroundColor)
-    console.log('note:', note)
+    note = _createNote(title, txt, url, src, backgroundColor, note.type, todos)
     return storageService.post(NOTE_KEY, note)
   }
 }
 
-function _createNote(title, txt, url, src, backgroundColor) {
+function _createNote(
+  title,
+  txt,
+  url,
+  src,
+  backgroundColor,
+  type = 'NoteTxt',
+  todos = []
+) {
+  const isEmptyContent = !title && !txt && !url && !src && todos.length === 0
+
   const newNote = {
     id: utilService.makeId(),
     createdAt: Date.now(),
-    type: 'NoteTxt',
+    type: type,
     isPinned: false,
     style: {
       backgroundColor: backgroundColor || getKeepRandomColor(),
     },
     info: {
       title: title || 'Note',
-      txt: txt || utilService.makeLorem(5),
+      txt: isEmptyContent ? utilService.makeLorem(5) : txt || '',
       url: url || '',
       src: src || '',
+      todos: type === 'NoteTodos' ? todos : undefined,
     },
   }
 
@@ -78,7 +87,7 @@ function _createNote(title, txt, url, src, backgroundColor) {
 }
 
 function getEmptyNote() {
-  return { id: '', title: '', txt: '', url: '', src: '' }
+  return { id: '', title: '', txt: '', url: '', src: '', todos: [] }
 }
 
 function _createNotes() {
