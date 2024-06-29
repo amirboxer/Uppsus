@@ -10,7 +10,7 @@
 
 /* Pages */
 @import url(./pages/about.css);
-@import url(./pages/home.css);
+/* @import url(./pages/home.css); */
 
 /* @import './apps/note/pages/NoteIndex.css'; */
 @import './apps/note/cmps/NotePreview.css';
