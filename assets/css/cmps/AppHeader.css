@@ -6,7 +6,7 @@ header {
 .app-header {
     display: flex;
     justify-content: space-between;
-    padding: 20px 0;
+    padding: 15px;
     font-size: 0.875rem;
 }
 
@@ -133,4 +133,9 @@ header {
 
 .user-info > .user-name{
     font-weight: 400;
+}
+
+
+.logo {
+    height: 40px;
 }

@@ -10,18 +10,35 @@ import { NoteIndex } from './apps/note/pages/NoteIndex.jsx'
 
 export function App() {
   return (
-    <Router>
-      <section className="app">
-        <AppHeader />
-        <Routes>
-          <Route path="/" element={<Home />} />
-          <Route path="/about" element={<About />} />
-          <Route path="/note" element={<NoteIndex />} />
-          <Route path="/mail" element={<MailIndex />} >
-            <Route path="/mail/:id" element={<MailDetails />} />
-          </Route>
-        </Routes>
-      </section>
-    </Router>
+    <React.Fragment>
+      <Router>
+        <section className="app" style={{ height: '100%', minHeight: 'calc( 100vh - 71px)' }}>
+          <AppHeader />
+          <Routes>
+            <Route path="/" element={<Home />} />
+            <Route path="/about" element={<About />} />
+            <Route path="/note" element={<NoteIndex />} />
+            <Route path="/mail" element={<MailIndex />} >
+              <Route path="/mail/:id" element={<MailDetails />} />
+            </Route>
+          </Routes>
+        </section>
+      </Router>
+      <Footer />
+    </React.Fragment>
   )
 }
+
+
+const Footer = () => {
+  const currentYear = new Date().getFullYear();
+
+  return (
+    <footer>
+      <p>&copy; {currentYear} Appsus. All rights reserved.</p>
+      <p className="footer-names">Designed and developed by Adir Gamil, and Amir Boxer.</p>
+    </footer>
+  );
+};
+
+export default Footer;

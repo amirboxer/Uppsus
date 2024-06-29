@@ -12,7 +12,7 @@ export function AppHeader() {
 
     return <header className="app-header">
         <Link to="/">
-            <h3>LOGO!</h3>
+            <img className="logo" src="./assets/img/logo.png" alt="" />
         </Link>
 
         <div className="app-header-right-handside">
