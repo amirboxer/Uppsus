@@ -1,18 +1,27 @@
 const { useState } = React
 import { mailService } from "../services/mail.service.js"
+const { useNavigate } = ReactRouterDOM
 
-export function MailNavigation({ unreadCount, setSearch, hamburgerOpen}) {
+export function MailNavigation({ unreadCount, setSearch, hamburgerOpen }) {
     const [folderSelected, setFolderSelected] = useState('inbox')
+    const navigate = useNavigate()
+
+    function linkToList() {
+        navigate(`/mail`)
+    }
 
     function onFolderClick(folderName) {
         setFolderSelected(folderName)
         setSearch(mailService.setFolder(folderName))
+        linkToList()
     }
 
     return (
         <ul className="mail-navigation-list clean-ul">
             <li>
-                <button onClick={() => onFolderClick('inbox')} title="inbox"
+                <button
+                    onClick={() => onFolderClick('inbox')} 
+                    title="inbox"
                     className={`${folderSelected === 'inbox' ? 'selected' : ''} ${hamburgerOpen ? '' : 'hambuger-closed'}`}>
                     <div className="material-icons icon">inbox</div>
                     <div className={`folder inbox ${hamburgerOpen ? '' : 'hambuger-closed'}`}>Inbox

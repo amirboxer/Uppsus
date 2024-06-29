@@ -24,7 +24,7 @@ export function MailList({ setMails, mails, deleteMail, toggleIsRead, setSearch 
     // --- hooks end --- //
 
     function linkMessege(mailId) {
-        navigate(`/mail/${mailId}`, { state: { setMails: 'dfv' } })
+        navigate(`/mail/${mailId}`)
     }
 
     return (

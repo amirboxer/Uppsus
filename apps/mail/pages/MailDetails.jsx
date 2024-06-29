@@ -19,13 +19,11 @@ export function MailDetails() {
     const navigate = useNavigate()
 
     //  effect
-    // TODO update when back in index
     useEffect(() => {
-        console.log('hi')
         mailService.get(params.id)
             .then(mail => {
                 const newMail = { ...mail, ['isRead']: true }
-                mailService.save(mail)
+                mailService.save(newMail)
                     .then(setMail(newMail))
                     .catch(_ => {
                         navigate('/mail')
