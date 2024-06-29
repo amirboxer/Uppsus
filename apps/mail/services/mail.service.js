@@ -68,7 +68,7 @@ function query() {
 
             // folders
             if (gFilterBy.inbox) {
-                mails = mails.filter(mail => (mail.to === USER_IDENTIFIERS.email && !mail.removedAt))
+                mails = mails.filter(mail => (mail.to === USER_IDENTIFIERS.email && !mail.removedAt && mail.sentAt))
             }
 
             if (gFilterBy.starred) {
@@ -81,6 +81,11 @@ function query() {
 
             if (gFilterBy.bin) {
                 mails = mails.filter(mail => !!mail.removedAt)
+            }
+
+            
+            if (gFilterBy.drafts) {
+                mails = mails.filter(mail => !mail.sentAt)
             }
 
             if (gFilterBy.categorie) {
@@ -111,7 +116,7 @@ function getFilterBy() {   // copoy of filters
 }
 
 function setFilterBy(filterBy) {
-    gFilterBy = {...filterBy}
+    gFilterBy = { ...filterBy }
 
     return gFilterBy
 }
@@ -124,14 +129,15 @@ function getNextMailId(mailId) {
         })
 }
 
-function createSentMail({ to, subject, body, createdAt }) {
+function createSentMail({ to, subject, body, createdAt, isDraft = false, id = undefined }) {
     return {
+        id,
         starred: false,
         createdAt,
         subject,
         body,
         isRead: true,
-        sentAt: Date.now(),
+        sentAt: isDraft ? null : Date.now(),
         removedAt: null,
         from: USER_IDENTIFIERS.email,
         senderName: USER_IDENTIFIERS.fullname,

@@ -69,10 +69,10 @@ export function MailIndex() {
     }
 
     // add mail
-    function sendMail({ to, subject, body, createdAt }) {
-        const mail = mailService.createSentMail({ to, subject, body, createdAt })
+    function sendMail({ to, subject, body, createdAt, isDraft = false }) {
+        const mail = mailService.createSentMail({ to, subject, body, createdAt, isDraft })
         mailService.save(mail)
-            .then(sentMail => setMails(prevMail => [sentMail, ...prevMail]))
+            .then(sentMail => setSearchPattern(prev => ({ ...prev })));
     }
 
     return (
@@ -106,8 +106,8 @@ export function MailIndex() {
                     setSearch={setSearchPattern}
                     unreadCount={unreadCount} />
             </div>
-            {/* preview list */}
 
+            {/* preview list */}
             <div className="previews-conrainer">
                 <MailList
                     setSearch={setSearchPattern}

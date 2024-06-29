@@ -39,7 +39,7 @@ export function MailNavigation({ unreadCount, setSearch, hamburgerOpen}) {
             </li>
 
             <li>
-                <button
+                <button onClick={() => onFolderClick('drafts')}
                     className={`${folderSelected === 'drafts' ? 'selected' : ''} ${hamburgerOpen ? '' : 'hambuger-closed'}`}>
                     <span className="material-icons icon">note</span>
                     <div className={`folder drafts ${hamburgerOpen ? '' : 'hambuger-closed'}`}>Drafts</div>

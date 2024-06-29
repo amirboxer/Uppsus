@@ -17,11 +17,11 @@ export function MailDetails() {
 
     // navigation
     const navigate = useNavigate()
-    const location = useLocation()
 
     //  effect
     // TODO update when back in index
     useEffect(() => {
+        console.log('hi')
         mailService.get(params.id)
             .then(mail => {
                 const newMail = { ...mail, ['isRead']: true }

@@ -1,26 +1,44 @@
-const { useState } = React
+import { mailService } from "../services/mail.service.js"
+
+const { useState, useRef, useEffect } = React
 
 
-export function MailCompose({ sendMail, hamburgerOpen}) {
+export function MailCompose({ sendMail, hamburgerOpen }) {
     const [compose, setCompose] = useState(false)
     const [to, setTo] = useState('');
     const [subject, setSubject] = useState('');
     const [body, setBody] = useState('');
-    const [createdAt, _] = useState(Date.now())
+    const [createdAt, setcreatedAt] = useState(null)
+    const toInputRef = useRef(null);
+
+    useEffect(() => {
+        if (compose) {
+            toInputRef.current.focus();
+        }
+    }, [compose])
 
     function onCompose() {
         setCompose(true)
+        setcreatedAt(Date.now())
     }
 
     function onClose() {
+        if ((Date.now() - createdAt) / 1000 >= 5) {
+            sendMail({ to, subject, body, createdAt, ['isDraft'] : true })
+        }
         setCompose(false)
+        setTo('')
+        setSubject('')
+        setBody('')
     }
 
     function onSendMessege() {
         sendMail({ to, subject, body, createdAt })
         setCompose(false)
+        setTo('')
+        setSubject('')
+        setBody('')
     }
-
     return (
 
         // < button > Compose</button >
@@ -39,6 +57,7 @@ export function MailCompose({ sendMail, hamburgerOpen}) {
 
                 {/* to */}
                 <input className="mail-compose-to" type="text" placeholder="To"
+                    ref={toInputRef}
                     value={to}
                     onChange={(e) => setTo(e.target.value)}
                 />
@@ -57,8 +76,9 @@ export function MailCompose({ sendMail, hamburgerOpen}) {
 
                 {/* send button */}
                 <div className="mail-compose-send">
-                    <button className="send-btn" onClick={onSendMessege}>Send</button>
+                    <button id="send-btn" onClick={onSendMessege}>Send</button>
                 </div>
+
             </section>
             }
 
