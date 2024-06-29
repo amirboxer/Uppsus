@@ -10,7 +10,6 @@ export function MailNavigation({ unreadCount, setMails, hamburgerOpen }) {
                 setFolderSelected(folderName)
                 setMails(mails)
             })
-
     }
 
     return (

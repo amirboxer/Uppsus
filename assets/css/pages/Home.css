@@ -2,8 +2,8 @@
      display: grid;
      height: calc(100vh - 75px - 71px);
      grid-template-columns: 60vw;
-     justify-content: center;
      place-content: center;
+     justify-items: center;
      padding-block: 2rem;
     }
     

@@ -82,11 +82,12 @@ export function MailIndex() {
         <section className="mail-index">
             {/* search bar */}
             <div className='search-bar'>
+
                 {/* hamburger */}
                 <button className="material-icons mail-humburger" title='Main Menu' onClick={() => setSideBarOpen(prev => !prev)}>menu</button>
 
                 {/* logo */}
-                <div className='mail-logo'>logo</div>
+                <img className='mail-logo' src="./assets/img/gmail-logo.png" alt="" />
 
                 {/* search */}
                 <MailSearch
