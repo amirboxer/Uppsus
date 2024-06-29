@@ -13,6 +13,9 @@ export const mailService = {
     getNextMailId,
     generateDemoMails,
     createSentMail,
+    getUserName,
+    getUserMail,
+    getFolder,
 }
 
 // +-+-+-+-+-+-+-+-+-+-+-+-  globals  +-+-+-+-+-+-+-+-+-+-+-+- // 
@@ -22,17 +25,57 @@ const USER_IDENTIFIERS = {
     fullname: 'Mahatma Appsus'
 }
 
-let gFilterBy = { subject: '' }
+const MAX_PER_PAGE = 50
+let gFilterBy = {
+    subject: '',
+    inbox: true,
+    starred: false,
+    sent: false,
+    drafts: false,
+    bin: false,
+}
+
+let gDefaultFalse = {
+    inbox: false,
+    starred: false,
+    sent: false,
+    drafts: false,
+    bin: false,
+}
 
 // +-+-+-+-+-+-+-+-+-+-+-+- data queries +-+-+-+-+-+-+-+-+-+-+-+-//
+
+function getFolder(folderName = 'inbox') {
+    gFilterBy = { ...gDefaultFalse, ['subject']: gFilterBy.subject, [folderName]: true }
+    if (folderName === 'all') gFilterBy = { ...gDefaultFalse, ['subject']: '' }
+    return query()
+}
+
 function query() {
     return storageService.query(MAILS_LCS_KEY)
         .then(mails => {
             if (gFilterBy.subject) {
-                console.log('gFilterBy', gFilterBy)
                 const regex = new RegExp(gFilterBy.subject, 'i')
                 mails = mails.filter(mail => regex.test(mail.subject))
             }
+
+            // folders
+            if (gFilterBy.inbox) {
+                mails = mails.filter(mail => (mail.to === USER_IDENTIFIERS.email && !mail.removedAt))
+            }
+
+            if (gFilterBy.starred) {
+                mails = mails.filter(mail => mail.starred)
+            }
+
+            if (gFilterBy.sent) {
+                mails = mails.filter(mail => (mail.from === USER_IDENTIFIERS.email && mail.sentAt))
+            }
+
+            if (gFilterBy.bin) {
+                mails = mails.filter(mail => !!mail.removedAt)
+            }
+            console.log(mails)
             return mails
         })
 }
@@ -80,12 +123,22 @@ function createSentMail({ to, subject, body, createdAt }) {
         isRead: true,
         sentAt: Date.now(),
         removedAt: null,
-        from: USER_IDENTIFIERS.email
+        from: USER_IDENTIFIERS.email,
+        senderName: USER_IDENTIFIERS.fullname,
+        to,
     }
 }
 
+function getUserName() {
+    return USER_IDENTIFIERS.fullname
+}
+
+function getUserMail() {
+    return USER_IDENTIFIERS.email
+}
+
 // +-+-+-+-+-+-+-+-+-+-+-+- demo data +-+-+-+-+-+-+-+-+-+-+-+-//
-function generateDemoMails(mailCount = 40) {
+function generateDemoMails(mailCount = 120) {
     // check if there are any mails im lcl storage
     let mails = utilService.loadFromStorage(MAILS_LCS_KEY)
     if (!(!mails || !mails.length)) return
@@ -116,15 +169,16 @@ function _generateUserRandomEmail(id, userEmails = false) {
     const sentAt = utilService.getRandomIntInclusive(today - twoYears, today)
     return {
         id,
-        starred: false,
+        starred: Math.random() > 0.8 ? true : false,
         createdAt: Math.random() > utilService.getRandomIntInclusive(sentAt - onWeek, sentAt),
         subject: _generateRandomEmailSubject(),
         body: _generateRandomEmailBody(),
         isRead: userEmails ? true : Math.random() > 0.4 ? true : false,
         sentAt,
-        removedAt: Math.random() > 0.7 ? null : utilService.getRandomIntInclusive(sentAt, today),
-        from: userEmails ? USER_IDENTIFIERS.email : generateRandomName(),
-        to: _generateRandomEmailAddress(),
+        removedAt: Math.random() > 0.3 ? null : utilService.getRandomIntInclusive(sentAt, today),
+        from: userEmails ? USER_IDENTIFIERS.email : _generateRandomEmailAddress(),
+        senderName: userEmails ? USER_IDENTIFIERS.fullname : generateRandomName(),
+        to: !userEmails ? USER_IDENTIFIERS.email : _generateRandomEmailAddress(),
     }
 }
 

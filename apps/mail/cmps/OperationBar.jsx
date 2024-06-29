@@ -2,7 +2,7 @@ export function OperationsBar({ deleteMail, toggleIsRead, mail }) {
 
     function onClickDeleteMail(ev) {
         ev.stopPropagation()
-        deleteMail(mail.id)
+        deleteMail(mail)
     }
 
     function onClickToggleUnread(ev) {
