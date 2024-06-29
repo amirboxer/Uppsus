@@ -4,7 +4,7 @@ import { MailCategories } from './MailCategories.jsx'
 const { Outlet, useNavigate, useLocation } = ReactRouterDOM
 const { useState, useEffect } = React
 
-export function MailList({ setMails, mails, deleteMail, toggleIsRead }) {
+export function MailList({ setMails, mails, deleteMail, toggleIsRead, setSearch }) {
     // --- hooks --- //
     // states
     const [showList, setShowList] = useState(true)
@@ -24,7 +24,7 @@ export function MailList({ setMails, mails, deleteMail, toggleIsRead }) {
     // --- hooks end --- //
 
     function linkMessege(mailId) {
-        navigate(`/mail/${mailId}`, {state: {setMails: 'dfv'}})
+        navigate(`/mail/${mailId}`, { state: { setMails: 'dfv' } })
     }
 
     return (
@@ -32,7 +32,8 @@ export function MailList({ setMails, mails, deleteMail, toggleIsRead }) {
             {showList && (
                 <React.Fragment>
                     {/* categories */}
-                    <MailCategories />
+                    <MailCategories
+                        setSearch={setSearch} />
 
                     {/* mails */}
                     {mails.map(mail => (

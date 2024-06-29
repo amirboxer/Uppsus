@@ -1,15 +1,12 @@
 const { useState } = React
 import { mailService } from "../services/mail.service.js"
 
-export function MailNavigation({ unreadCount, setMails, hamburgerOpen }) {
+export function MailNavigation({ unreadCount, setSearch, hamburgerOpen}) {
     const [folderSelected, setFolderSelected] = useState('inbox')
 
     function onFolderClick(folderName) {
-        mailService.getFolder(folderName)
-            .then(mails => {
-                setFolderSelected(folderName)
-                setMails(mails)
-            })
+        setFolderSelected(folderName)
+        setSearch(mailService.setFolder(folderName))
     }
 
     return (

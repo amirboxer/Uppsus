@@ -10,6 +10,7 @@
 /* operations-bar */
 .mail-operation {
     cursor: pointer;
+    padding-inline: 9px ;
 }
 
 .operations-bar .material-symbols-outlined {
@@ -17,7 +18,7 @@
 }
 
 .icon-hover:hover {
-    background-color: #f2f2f2;
+    background-color: #e6eaef;
     border-radius: 20px;
 }
 
@@ -43,11 +44,17 @@
 button.mail-preview {
     background-color: transparent;
     font-size: 0.875rem;
-    padding-inline-end: 0.7rem;
+    border-radius: 30px;
+    padding-inline: 0.6rem;
+}
+
+button.mail-preview:hover {
+    background-color: #e6eaef;
+
 }
 
 button.mail-preview:first-child {
-    padding-inline-start: 0.8rem;
+    margin-inline-start: 0.2rem;
 }
 
 .sentAt {
@@ -113,8 +120,8 @@ button.mail-preview:first-child {
         justify-self: end;
         display: grid;
         padding-inline-start: 28px;
-        padding-inline-end: 16px;
-        gap: 1.75rem;
+        padding-inline-end: 6px;
+        gap: 1rem;
         grid-auto-flow: column;
     }
 
@@ -213,6 +220,7 @@ button.mail-preview:first-child {
 }
 
 .mail-navigation-list button .icon {
+    font-size: 1rem;
     color: rgb(69, 71, 76);
     padding-inline-start: 26px;
 }
@@ -239,7 +247,7 @@ button.mail-preview:first-child {
 
 button.hambuger-closed {
     width: fit-content;
-    padding-inline: 5px;
+    padding-inline: 9px;
     margin-inline-start: 26px;
     border-radius: 20px;
     margin-inline-start: 37px;
@@ -448,7 +456,7 @@ textarea {
     grid-auto-flow: column;
     align-items: center;
     justify-content: start;
-    gap: 1rem
+    gap: 1rem;
 }
 
 .material-icons.icon {
@@ -460,6 +468,6 @@ textarea {
     box-shadow: inset 0px -1.8px 0px 0px #0b57d0;;
 }
 
-.material-icons.icon.inbox {
+.material-icons.icon.primery {
    margin-inline-start: 0.3rem;
 }

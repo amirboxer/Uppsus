@@ -15,7 +15,7 @@ export const mailService = {
     createSentMail,
     getUserName,
     getUserMail,
-    getFolder,
+    setFolder,
 }
 
 // +-+-+-+-+-+-+-+-+-+-+-+-  globals  +-+-+-+-+-+-+-+-+-+-+-+- // 
@@ -34,6 +34,7 @@ let gFilterBy = {
     sent: false,
     drafts: false,
     bin: false,
+    categorie: 'primery'
 }
 
 let gDefaultFalse = {
@@ -46,10 +47,15 @@ let gDefaultFalse = {
 
 // +-+-+-+-+-+-+-+-+-+-+-+- data queries +-+-+-+-+-+-+-+-+-+-+-+-//
 
-function getFolder(folderName = 'inbox') {
-    gFilterBy = { ...gDefaultFalse, ['subject']: gFilterBy.subject, [folderName]: true }
-    if (folderName === 'all') gFilterBy = { ...gDefaultFalse, ['subject']: '' }
-    return query()
+function setFolder(folderName = 'inbox') {
+    gFilterBy = {
+        ...gDefaultFalse,
+        ['subject']: gFilterBy.subject,
+        ['categorie']: gFilterBy.categorie,
+        [folderName]: true
+    }
+    // if (folderName === 'all') gFilterBy = { ...gDefaultFalse, ['subject']: '' }
+    return gFilterBy
 }
 
 function query() {
@@ -76,7 +82,10 @@ function query() {
             if (gFilterBy.bin) {
                 mails = mails.filter(mail => !!mail.removedAt)
             }
-            console.log(mails)
+
+            if (gFilterBy.categorie) {
+                mails = mails.filter(mail => mail.categorie === gFilterBy.categorie)
+            }
             return mails
         })
 }
@@ -101,8 +110,8 @@ function getFilterBy() {   // copoy of filters
     return { ...gFilterBy }
 }
 
-function setFilterBy(filterBy = {}) {
-    if (filterBy.subject !== undefined) gFilterBy.subject = filterBy.subject
+function setFilterBy(filterBy) {
+    gFilterBy = {...filterBy}
 
     return gFilterBy
 }
@@ -131,7 +140,6 @@ function createSentMail({ to, subject, body, createdAt }) {
     }
 }
 
-
 function getUserName() {
     return USER_IDENTIFIERS.fullname
 }
@@ -141,7 +149,7 @@ function getUserMail() {
 }
 
 // +-+-+-+-+-+-+-+-+-+-+-+- demo data +-+-+-+-+-+-+-+-+-+-+-+-//
-function generateDemoMails(mailCount = 120) {
+function generateDemoMails(mailCount = 400) {
     // check if there are any mails im lcl storage
     let mails = utilService.loadFromStorage(MAILS_LCS_KEY)
     if (!(!mails || !mails.length)) return
@@ -182,7 +190,7 @@ function _generateUserRandomEmail(id, userEmails = false) {
         from: userEmails ? USER_IDENTIFIERS.email : _generateRandomEmailAddress(),
         senderName: userEmails ? USER_IDENTIFIERS.fullname : generateRandomName(),
         to: !userEmails ? USER_IDENTIFIERS.email : _generateRandomEmailAddress(),
-        categorie: !userEmails ? CATEGORIES[0] : CATEGORIES[utilService.getRandomIntInclusive(0, 2)]
+        categorie: userEmails ? CATEGORIES[0] : CATEGORIES[utilService.getRandomIntInclusive(0, 2)]
     }
 }
 

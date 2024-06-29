@@ -23,7 +23,7 @@ export function MailIndex() {
     // effects
     useEffect(() => {
         mailService.setFilterBy(searchPattern)  // in service not async
-        mailService.getFolder('inbox')
+        mailService.query()
             .then(setMails)
     }, [searchPattern])
 
@@ -42,16 +42,13 @@ export function MailIndex() {
 
     // delete mail
     function deleteMail(mail) {
-        console.log(mail.removedAt)
         if (!mail.removedAt) {
             const newMail = { ...mail, ['removedAt']: Date.now() }
-            console.log(newMail)
             mailService.save(newMail)
                 .then(() => setMails(prevMails => [...prevMails.filter(m => m.id !== mail.id), newMail]))
         }
 
         else {
-            console.log(mail)
             mailService.remove(mail.id)
                 .then(() => setMails(prevMails => prevMails.filter(m => m.id !== mail.id)))
                 .catch(() => console.log('cannot remove'))
@@ -106,13 +103,14 @@ export function MailIndex() {
                 {/* sidebars folders */}
                 <MailNavigation
                     hamburgerOpen={sideBarOpen}
-                    setMails={setMails}
+                    setSearch={setSearchPattern}
                     unreadCount={unreadCount} />
             </div>
             {/* preview list */}
 
             <div className="previews-conrainer">
                 <MailList
+                    setSearch={setSearchPattern}
                     setMails={setMails}
                     mails={mails}
                     deleteMail={deleteMail}
