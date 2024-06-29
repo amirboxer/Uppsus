@@ -41,7 +41,7 @@
 }
 
 .card-btns {
-  display: inline-block;
+text-align: center;
   font-size: 2em;
 }
 
