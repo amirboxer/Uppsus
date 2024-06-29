@@ -20,7 +20,6 @@ export function App() {
           <Route path="/mail" element={<MailIndex />} >
             <Route path="/mail/:id" element={<MailDetails />} />
           </Route>
-          <Route path="/note" element={<NoteIndex />} />
         </Routes>
       </section>
     </Router>

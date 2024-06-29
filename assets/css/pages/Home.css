@@ -1,2 +1,23 @@
  /* home */
+ /* .main-img-container {
+     padding-block-end: 2rem;
+ } */
 
+ .main-img-container {
+    width: 100%;
+     display: grid;
+     justify-items: center;
+     opacity: 0.7;
+     grid-template-columns: 50vw;
+     justify-content: center;
+     padding-block: 2rem;
+ }
+
+ .home-img {
+     width: 100%;
+ }
+
+ .footer-names {
+     font-Size: '0.875rem';
+     color: '#666'
+ }

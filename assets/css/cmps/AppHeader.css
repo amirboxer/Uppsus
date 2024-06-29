@@ -33,7 +33,7 @@ header {
 }
 
 .apps-icon:hover {
-    background-color: #e8eaed;
+    background-color: #cecccc;
 }
 
 .user-icon {
@@ -57,13 +57,14 @@ header {
 }
 
 .app-header-right-handside .home:hover, .about:hover {
-    outline: #ffffff solid 8px;
-    background-color: #ffffff;
+    outline: #cecccc solid 8px;
+    background-color: #cecccc;
     border-radius: 5px;
 
 }
 
 .main-nav {
+    z-index: 3;
     height: fit-content;
     display: grid;
     grid-template-columns: 1fr 1fr;
@@ -107,6 +108,7 @@ header {
 
 .user-icon:hover{
     .user-info{
+        /* z-index: 2; */
         display: grid;
     }
 }
@@ -132,11 +134,3 @@ header {
 .user-info > .user-name{
     font-weight: 400;
 }
-
-
-/* <button className="user-icon">{mailService.getUserName()[0]}
-<div className="user-info">
-    <div className="appsus-account">Appsus Account</div>
-    <div  className="user-name">{mailService.getUserName()}</div>
-    <div className="user-mail">{mailService.getUserMail()}</div>
-</div> */
