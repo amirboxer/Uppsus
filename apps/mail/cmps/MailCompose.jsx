@@ -1,7 +1,7 @@
 const { useState } = React
 
 
-export function MailCompose({sendMail}) {
+export function MailCompose({ sendMail, hamburgerOpen}) {
     const [compose, setCompose] = useState(false)
     const [to, setTo] = useState('');
     const [subject, setSubject] = useState('');
@@ -17,7 +17,7 @@ export function MailCompose({sendMail}) {
     }
 
     function onSendMessege() {
-        sendMail({to, subject, body, createdAt})
+        sendMail({ to, subject, body, createdAt })
         setCompose(false)
     }
 
@@ -25,7 +25,10 @@ export function MailCompose({sendMail}) {
 
         // < button > Compose</button >
         <React.Fragment>
-            <button onClick={onCompose}>Compose</button>
+            <button className="mail-compose-btn" onClick={onCompose}>
+                <span className="material-icons compose-icon">mode_edit_outline</span>
+                <span className={`compose-btn-text ${hamburgerOpen ? '' : 'close-compose-btn-text'}`}>Compose</span>
+            </button>
 
             {compose && <section className="mail-compose">
                 {/* head */}

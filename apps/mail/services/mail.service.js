@@ -75,7 +75,6 @@ function query() {
             if (gFilterBy.bin) {
                 mails = mails.filter(mail => !!mail.removedAt)
             }
-            console.log(mails)
             return mails
         })
 }

@@ -7,7 +7,7 @@ export function MailSearch({ prevPattern, setPrevPattern }) {
     }
 
     return (
-        <div className="search-bar">
+        <div className="search-input">
             <input type="text" value={prevPattern.subject} placeholder="Search mail" onChange={onChangePattern} />
         </div>
     )

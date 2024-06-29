@@ -145,17 +145,47 @@ button.mail-preview:first-child {
     grid-column: 1;
     display: grid;
     grid-template-columns: max-content;
+    gap: 1rem;
+
     font-family: Roboto-Regular;
     color: rgb(32, 33, 36);
     align-content: start;
     width: max-content;
     padding-inline-end: 26px;
 
-
-    button {
+    button:not(.mail-compose-btn){
         background: none;
     }
+}
 
+
+.mail-compose-btn {
+    margin-inline-start: 26px;;
+    height: 56px;
+    background-color: #c2e7ff;
+    color: #000;
+    width: fit-content;
+    display: grid;
+    grid-auto-flow: column;
+    align-items: center;
+    grid-template-columns: fit-content fit-content;
+    border-radius: 15px;
+}
+
+.mail-compose-btn:hover {
+    filter: drop-shadow(0px 0px 5px #767676ae);
+}
+ 
+.compose-icon {
+    width: 56px;
+}
+
+.compose-btn-text{
+    padding-inline-end: 24px;
+}
+
+.close-compose-btn-text {
+    display: none;
 }
 
 .mail-navigation-list button {
@@ -167,7 +197,7 @@ button.mail-preview:first-child {
     gap: 2rem;
     height: 32px;
     align-items: center;
-    padding-inline-start: 26px;
+    
 
     /* background-color: #0e8fff87; */
     border-radius: 0px 20px 20px 0px;
@@ -184,6 +214,7 @@ button.mail-preview:first-child {
 
 .mail-navigation-list button .icon {
     color: rgb(69, 71, 76);
+    padding-inline-start: 26px;
 }
 
 .mail-navigation-list button:not(.selected):hover {
@@ -202,7 +233,7 @@ button.mail-preview:first-child {
     place-self: end;
 }
 
-/* .folder.hambuger-closed {
+.folder.hambuger-closed {
     display: none
 }
 
@@ -210,16 +241,38 @@ button.hambuger-closed{
     width: fit-content;
     padding-inline: 5px; 
     margin-inline-start: 26px; 
-
     border-radius: 20px;
-} */
+    margin-inline-start: 37px;
+    .icon {
+        padding: 0;
+    } 
+}
 
 /* search-bar */
 .search-bar {
     grid-column: 1 / -1;
+    display: grid;
+    grid-auto-flow: column;
+    justify-content: start;
+    align-items: center;
+    height: 48px
 }
 
+.mail-humburger {
+    background: none;
+    color: #5f6368;
+    padding: 0.5rem;
+}
+
+.mail-humburger:hover {
+    background-color: #e8eaed;
+    border-radius: 20px;
+}
+
+
+
 /* mail compose */
+
 .mail-compose {
     -moz-border-radius: 0px;
     -webkit-border-radius: 8px 8px 0px 0px;

@@ -1,7 +1,6 @@
 /* Setup */
 
 @import url(./setup/fonts.css);
-@import url(./setup/fonts.css);
 /* @import './setup/fonts.css'; */
 
 /* Basics */
@@ -22,13 +21,9 @@
 
 /* @import './apps/mail/pages/MailIndex.css'; */
 
-
 /******** Cmps ********/
 @import url(./cmps/UserMsg.css);
 @import url(./cmps/AppHeader.css);
-
-
-
 
 /*** mail ***/
 @import url(../../assets/css/apps/mail/mail.css);

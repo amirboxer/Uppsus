@@ -18,6 +18,7 @@ export function MailIndex() {
     const [mails, setMails] = useState([])
     const [unreadCount, setUnreadCount] = useState(0)
     const [searchPattern, setSearchPattern] = useState(mailService.getFilterBy())
+    const [sideBarOpen, setSideBarOpen] = useState(true)
 
     // effects
     useEffect(() => {
@@ -80,20 +81,30 @@ export function MailIndex() {
     return (
         <section className="mail-index">
             {/* search bar */}
-            <MailSearch
-                prevPattern={searchPattern}
-                setPrevPattern={setSearchPattern} />
-                <span className="material-icons">menu</span>
+            <div className='search-bar'>
+                {/* hamburger */}
+                <button className="material-icons mail-humburger" title='Main Menu' onClick={() => setSideBarOpen(prev => !prev)}>menu</button>
+
+                {/* logo */}
+                <div className='mail-logo'>logo</div>
+
+                {/* search */}
+                <MailSearch
+                    prevPattern={searchPattern}
+                    setPrevPattern={setSearchPattern} />
+            </div>
 
             {/* side bar */}
             <div className='side-bar'>
-                {/* hamburger */}
 
                 {/* new email */}
-                <MailCompose sendMail={sendMail} />
+                <MailCompose
+                    sendMail={sendMail}
+                    hamburgerOpen={sideBarOpen} />
 
                 {/* sidebars folders */}
                 <MailNavigation
+                    hamburgerOpen={sideBarOpen}
                     setMails={setMails}
                     unreadCount={unreadCount} />
             </div>
