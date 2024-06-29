@@ -24,12 +24,16 @@ export function MailIndex() {
     useEffect(() => {
         mailService.setFilterBy(searchPattern)  // in service not async
         mailService.query()
-            .then(setMails)
+            .then(mails => {
+                setMails(mails)
+                setUnreadCount(mailService.getUnreadMark())
+
+            })
     }, [searchPattern])
 
     // count unraed
     useEffect(() => {
-        setUnreadCount(countUnread())
+        setUnreadCount(mailService.getUnreadMark())
     }, [mails])
     // --- hooks end ---
 
@@ -59,10 +63,7 @@ export function MailIndex() {
     function toggleIsRead(mail) {
         mail.isRead = !mail.isRead
         mailService.save(mail)
-            .then(() => {
-                setUnreadCount(prevUnreadCount => mail.isRead ? prevUnreadCount - 1 : prevUnreadCount + 1
-                )
-            })
+            .then(() => setSearchPattern(prev => ({ ...prev })))
             .catch(() => {
                 mail.isRead = !mail.isRead
             })
@@ -72,7 +73,7 @@ export function MailIndex() {
     function sendMail({ to, subject, body, createdAt, isDraft = false }) {
         const mail = mailService.createSentMail({ to, subject, body, createdAt, isDraft })
         mailService.save(mail)
-            .then(sentMail => setSearchPattern(prev => ({ ...prev })));
+            .then(() => setSearchPattern(prev => ({ ...prev })))
     }
 
     return (

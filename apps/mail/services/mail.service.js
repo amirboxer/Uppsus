@@ -16,6 +16,7 @@ export const mailService = {
     getUserName,
     getUserMail,
     setFolder,
+    getUnreadMark,
 }
 
 // +-+-+-+-+-+-+-+-+-+-+-+-  globals  +-+-+-+-+-+-+-+-+-+-+-+- // 
@@ -25,6 +26,7 @@ const USER_IDENTIFIERS = {
     fullname: 'Mahatma Appsus'
 }
 const CATEGORIES = ['primery', 'promotions', 'social']
+let gUnraedCount = 0
 
 const MAX_PER_PAGE = 50
 let gFilterBy = {
@@ -47,6 +49,10 @@ let gDefaultFalse = {
 
 // +-+-+-+-+-+-+-+-+-+-+-+- data queries +-+-+-+-+-+-+-+-+-+-+-+-//
 
+function getUnreadMark() {
+    return gUnraedCount
+}
+
 function setFolder(folderName = 'inbox') {
     gFilterBy = {
         ...gDefaultFalse,
@@ -61,6 +67,11 @@ function setFolder(folderName = 'inbox') {
 function query() {
     return storageService.query(MAILS_LCS_KEY)
         .then(mails => {
+            gUnraedCount = mails.reduce((acc, mail) => {
+                if (mail.to === USER_IDENTIFIERS.email && !mail.removedAt && mail.sentAt && !mail.isRead) acc += 1
+                return acc
+            }, 0)
+
             if (gFilterBy.subject) {
                 const regex = new RegExp(gFilterBy.subject, 'i')
                 mails = mails.filter(mail => regex.test(mail.subject))
@@ -83,7 +94,7 @@ function query() {
                 mails = mails.filter(mail => !!mail.removedAt)
             }
 
-            
+
             if (gFilterBy.drafts) {
                 mails = mails.filter(mail => !mail.sentAt)
             }

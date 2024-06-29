@@ -39,11 +39,17 @@ export function MailPreview({ mail, deleteMail, toggleIsRead, link }) {
         <React.Fragment>
             <article className={`list-row ${mail.isRead ? 'read' : 'unread'} ${selected ? 'selected' : ''}`} onClick={linkToMessege}>
                 {/* starred */}
-                <button className="mail-preview mail-operation material-icons" onClick={(ev) => toggleSelected(ev)}>{selected ? 'check' : 'check_box_outline_blank'}
+                <button
+                    className="mail-preview mail-operation material-icons"
+                    onClick={(ev) => toggleSelected(ev)}
+                    title="Select">{selected ? 'check' : 'check_box_outline_blank'}
                 </button>
 
                 {/* selected */}
-                <button className={`mail-preview mail-operation material-icons ${starred ? 'starred' : ''}`} onClick={(ev) => toggleStarred(ev, mail)}>{starred ? 'star' : 'star_outline'}
+                <button 
+                className={`mail-preview mail-operation material-icons ${starred ? 'starred' : ''}`} 
+                onClick={(ev) => toggleStarred(ev, mail)}
+                title="Star">{starred ? 'star' : 'star_outline'}
                 </button>
 
                 {/* mail origin */}
