@@ -9,8 +9,8 @@ export function About() {
             <h1 className="card-title">Adir Gamil</h1>
             <p className="card-details">Full Stack Developer based in Israel, initiated my journey at "Coding Academy", committed to continuous growth and excellence!</p>
             <div className="card-btns">
-                <a className="card-btn" href="https://github.com/AdirGamil"><i class="fa-brands fa-github"></i></a>
-                <a className="card-btn" href="https://www.linkedin.com/in/adirg/"><i class="fa-brands fa-linkedin-in"></i></a>
+                <a className="card-btn" href="https://github.com/AdirGamil"><i className="fa-brands fa-github"></i></a>
+                <a className="card-btn" href="https://www.linkedin.com/in/adirg/"><i className="fa-brands fa-linkedin-in"></i></a>
             </div>
         </div>
 
@@ -19,8 +19,8 @@ export function About() {
             <h1 className="card-title">Amir Boxer</h1>
             <p className="card-details">Full Stack Developer, Israel, I honed my skills at "Coding Academy" with a relentless pursuit of mastery and innovation! Holds a BSc in Computer Science.</p>
             <div className="card-btns">
-                <a className="card-btn" href="https://github.com/amirboxer"><i class="fa-brands fa-github"></i></a>
-                <a className="card-btn" href="https://www.linkedin.com/in/amir-boxer/"><i class="fa-brands fa-linkedin-in"></i></a>
+                <a className="card-btn" href="https://github.com/amirboxer"><i className="fa-brands fa-github"></i></a>
+                <a className="card-btn" href="https://www.linkedin.com/in/amir-boxer/"><i className="fa-brands fa-linkedin-in"></i></a>
             </div>
         </div>
 </section>
