@@ -24,6 +24,7 @@ const USER_IDENTIFIERS = {
     email: 'user@appsus.com',
     fullname: 'Mahatma Appsus'
 }
+const CATEGORIES = ['primery', 'promotions', 'social']
 
 const MAX_PER_PAGE = 50
 let gFilterBy = {
@@ -75,6 +76,7 @@ function query() {
             if (gFilterBy.bin) {
                 mails = mails.filter(mail => !!mail.removedAt)
             }
+            console.log(mails)
             return mails
         })
 }
@@ -125,8 +127,10 @@ function createSentMail({ to, subject, body, createdAt }) {
         from: USER_IDENTIFIERS.email,
         senderName: USER_IDENTIFIERS.fullname,
         to,
+        categorie: CATEGORIES[0]  // primery
     }
 }
+
 
 function getUserName() {
     return USER_IDENTIFIERS.fullname
@@ -178,6 +182,7 @@ function _generateUserRandomEmail(id, userEmails = false) {
         from: userEmails ? USER_IDENTIFIERS.email : _generateRandomEmailAddress(),
         senderName: userEmails ? USER_IDENTIFIERS.fullname : generateRandomName(),
         to: !userEmails ? USER_IDENTIFIERS.email : _generateRandomEmailAddress(),
+        categorie: !userEmails ? CATEGORIES[0] : CATEGORIES[utilService.getRandomIntInclusive(0, 2)]
     }
 }
 

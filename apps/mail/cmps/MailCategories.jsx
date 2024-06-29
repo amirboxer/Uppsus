@@ -1,4 +1,4 @@
-const { useEffect, useState } = React
+const {useState } = React
 
 export function MailCategories() {
     const [selected, setSelected] = useState('primery')
