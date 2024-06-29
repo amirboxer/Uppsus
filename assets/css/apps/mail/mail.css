@@ -16,6 +16,11 @@
     font-size: 1rem;
 }
 
+.icon-hover:hover {
+    background-color: #f2f2f2;
+    border-radius: 20px;
+}
+
 /* mail-preview */
 .mail-preview {
     display: flex;

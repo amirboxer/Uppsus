@@ -7,18 +7,54 @@ header {
     display: flex;
     justify-content: space-between;
     padding: 20px 0;
+    font-size: 0.875rem;
+    position: relative;
 }
 
-nav a {
-    margin: .5em;
+.app-header button {
+    width: 32px;
+    height: 32px; 
+    border-radius: 20px;
+
 }
 
-nav a:active {
+.apps-icon {
+    background: none;
+    color: #5f6368;
+}
+
+.apps-icon:hover {
+    background-color: #e8eaed;
+}
+
+.user-icon{
+    background-color: #689f38;
+    color: white;
+    font-family: Roboto-Regular;
+}
+
+.user-icon:hover {
+    outline: #e8eaed solid 3px;
+}
+
+
+
+
+/* nav a:active {
     color: purple;
-}
+} */
 
-nav a.active {
+/* nav a.active {
     color: darkblue;
     font-weight: bold;
     text-decoration: overline;
+}  */
+
+.main-nav {
+    /* display: none; */
+    background-color: #689f38;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    position: absolute;
+    right: 0;
 }
