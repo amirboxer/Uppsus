@@ -148,14 +148,28 @@ export function NotePreview({
                   className="note-edit-input"
                   type="text"
                   name="title"
-                  value={editNoteData.txt}
+                  value={editNoteData.title}
                   onChange={(e) => {
                     console.log('Title change:', e.target.value)
+                    setEditNoteData((prevData) => ({
+                      ...prevData,
+                      title: e.target.value,
+                    }))
+                  }}
+                  placeholder="Enter title"
+                />
+                <textarea
+                  className="note-edit-input"
+                  name="txt"
+                  value={editNoteData.txt}
+                  onChange={(e) => {
+                    console.log('Text change:', e.target.value)
                     setEditNoteData((prevData) => ({
                       ...prevData,
                       txt: e.target.value,
                     }))
                   }}
+                  placeholder="Enter text"
                 />
                 <button
                   onClick={() => handleSaveClick(note)}

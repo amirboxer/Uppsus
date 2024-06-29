@@ -68,7 +68,7 @@ function _createNote(title, txt, url, src, backgroundColor) {
     },
     info: {
       title: title || 'Note',
-      txt: txt || '',
+      txt: txt || utilService.makeLorem(5),
       url: url || '',
       src: src || '',
     },
@@ -85,7 +85,7 @@ function _createNotes() {
   let notes = utilService.loadFromStorage(NOTE_KEY)
   if (!notes || !notes.length) {
     notes = []
-    for (let i = 0; i < 15; i++) {
+    for (let i = 0; i < 10; i++) {
       notes.push(_createNote())
     }
     utilService.saveToStorage(NOTE_KEY, notes)

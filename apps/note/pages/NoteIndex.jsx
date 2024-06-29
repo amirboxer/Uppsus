@@ -1,6 +1,8 @@
 import { NotePreview } from '../cmps/NotePreview.jsx'
 import { NoteAdd } from '../cmps/NoteAdd.jsx'
 import { ColorInput } from '../cmps/ColorInput.jsx'
+import { demoNotes } from '../services/demoData.js'
+
 import { utilService } from '../../../services/util.service.js'
 import { storageService } from '../../../services/async-storage.service.js'
 import { noteService } from '../services/note.service.js'
