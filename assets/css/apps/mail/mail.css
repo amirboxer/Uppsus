@@ -313,6 +313,7 @@ textarea:focus, input:focus{
 /* mail compose */
 
 .mail-compose {
+    z-index: 4;
     -moz-border-radius: 0px;
     -webkit-border-radius: 8px 8px 0px 0px;
     border-radius: 8px 8px 0px 0px;
