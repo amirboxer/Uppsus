@@ -105,6 +105,11 @@ header {
     display: none;    
 }
 
+.user-icon:hover{
+    .user-info{
+        display: grid;
+    }
+}
 
 .user-icon > .user-info{
     position: absolute;
@@ -118,14 +123,6 @@ header {
     justify-items: start;
     border-radius: 5px;
     font-weight: bold;
-}
-
-
-.user-icon:hover{
-    .user-info{
-        background-color: grid;
-    }
-
 }
 
 .user-info > .user-name, .user-mail{
