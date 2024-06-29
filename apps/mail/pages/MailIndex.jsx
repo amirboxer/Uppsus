@@ -49,12 +49,12 @@ export function MailIndex() {
         if (!mail.removedAt) {
             const newMail = { ...mail, ['removedAt']: Date.now() }
             mailService.save(newMail)
-                .then(() => setMails(prevMails => [...prevMails.filter(m => m.id !== mail.id), newMail]))
+                .then(() => setSearchPattern(prev => ({ ...prev })))
         }
 
         else {
             mailService.remove(mail.id)
-                .then(() => setMails(prevMails => prevMails.filter(m => m.id !== mail.id)))
+                .then(() => setSearchPattern(prev => ({ ...prev })))
                 .catch(() => console.log('cannot remove'))
         }
     }
