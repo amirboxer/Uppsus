@@ -36,7 +36,6 @@ export function NoteIndex() {
   }
 
   function onColorChange(noteId) {
-    console.log('colorChanged: ', noteId)
     loadNotes()
   }
 

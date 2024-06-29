@@ -10,13 +10,13 @@ export function NoteAdd({ loadNotes }) {
 
   function onChangeCmp(type) {
     setCmpInput(type)
+    setNewNote(noteService.getEmptyNote()) // Reset note when changing type
+    setNewNote((prevNoteToEdit) => ({ ...prevNoteToEdit, type })) // Set the type of the new note
   }
 
   function handleChange({ target }) {
     const field = target.id
     let value = target.value
-    console.log(field)
-    console.log(value)
 
     switch (target.type) {
       case 'number':
@@ -26,17 +26,41 @@ export function NoteAdd({ loadNotes }) {
       default:
         break
     }
-    setNewNote((prevNoteToEdit) => ({ ...prevNoteToEdit, [field]: value }))
-    console.log('newNote: ', newNote)
+
+    if (field === 'todos') {
+      const todos = value
+        .split(',')
+        .map((todo) => ({ txt: todo.trim(), doneAt: null }))
+      setNewNote((prevNoteToEdit) => ({
+        ...prevNoteToEdit,
+        info: { ...prevNoteToEdit.info, todos },
+      }))
+    } else {
+      setNewNote((prevNoteToEdit) => ({
+        ...prevNoteToEdit,
+        info: { ...prevNoteToEdit.info, [field]: value },
+      }))
+    }
+  }
+
+  function handleKeyPress(event) {
+    if (event.key === 'Enter') {
+      event.preventDefault()
+      onSaveNote()
+    }
   }
 
   function onSaveNote(ev) {
-    console.log(ev.target)
-    ev.preventDefault()
-    console.log('newNote', newNote)
-    if (!newNote.title && !newNote.txt && !newNote.url && !newNote.src) return
+    if (ev) ev.preventDefault()
+    if (
+      !newNote.info.title &&
+      !newNote.info.txt &&
+      !newNote.info.url &&
+      !newNote.info.src &&
+      newNote.info.todos.length === 0
+    )
+      return
     noteService.save(newNote).then((savedNote) => {
-      console.log('savedNote', savedNote)
       loadNotes()
       setNewNote(noteService.getEmptyNote())
     })
@@ -46,12 +70,17 @@ export function NoteAdd({ loadNotes }) {
     <section className="add-note-main">
       <form className="note-form" onSubmit={onSaveNote}>
         <div className="input-with-buttons">
-          <DynamicCmp cmpType={cmpInput} handleChange={handleChange} />
+          <DynamicCmp
+            cmpType={cmpInput}
+            handleChange={handleChange}
+            handleKeyPress={handleKeyPress}
+          />
 
           <div className="note-input-buttons">
             {cmps.map((cmp) => (
               <button
                 key={cmp}
+                type="button"
                 className={`note-input-btn ${
                   cmp === cmpInput ? 'active-input-btn' : ''
                 }`}
@@ -107,6 +136,7 @@ function NoteTxt(props) {
       onChange={props.handleChange}
       id="txt"
       placeholder="Enter new note here..."
+      onKeyPress={props.handleKeyPress}
     />
   )
 }
@@ -119,18 +149,19 @@ function NoteImg(props) {
       onChange={props.handleChange}
       id="url"
       placeholder="Enter image url..."
+      onKeyPress={props.handleKeyPress}
     />
   )
 }
 
 function NoteTodos(props) {
   return (
-    <input
+    <textarea
       className="input-add-note note-text"
-      type="text"
       onChange={props.handleChange}
-      id="title"
-      placeholder="Enter ',' after every todo..."
+      id="todos"
+      placeholder="Enter todos separated by commas..."
+      onKeyPress={props.handleKeyPress}
     />
   )
 }
@@ -143,6 +174,7 @@ function NoteVideo(props) {
       onChange={props.handleChange}
       id="src"
       placeholder="Enter video src..."
+      onKeyPress={props.handleKeyPress}
     />
   )
 }
